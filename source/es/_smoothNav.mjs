@@ -4,8 +4,8 @@ const Reload = {
     goTo: async function (url, isBack = false, DoOthers) {
         document.body.classList.add('being-replaced');
         scrollToTop();
-        let NEO_REPLACE_NODE = document.querySelector('#NEO_REPLACE');
-        document.querySelector('header.global').classList.remove('collapsed');
+        let NEO_REPLACE_NODE = document.querySelector('#centerCol');
+        document.querySelector('#globalHeader').classList.remove('collapsed');
         let least_timer = new Promise(resolve => setTimeout(resolve, 250)), lang_timer = new Promise(resolve => setTimeout(resolve,500));
         let content = await (await fetch(url)).text();
         let newDocument = DOMParserI.parseFromString(content, 'text/html');
@@ -22,10 +22,10 @@ const Reload = {
         // process multi-language
         if(targetLanguage != currentLanguage){
             try {
-                let targetSideWidget = await (await fetch(`/neo/side-widgets.${targetLanguage}/index.html`)).text();
-                document.querySelector('#NEO_SIDE').innerHTML = targetSideWidget;
-                let currentNav = document.body.querySelector('header.global');
-                let targetNav = newDocument.body.querySelector('header.global');
+                let targetSideWidget = await (await fetch(`/neo/side.left.${targetLanguage}/index.html`)).text();
+                document.querySelector('#leftCol').innerHTML = targetSideWidget;
+                let currentNav = document.body.querySelector('#globalHeader');
+                let targetNav = newDocument.body.querySelector('#globalHeader');
                 currentNav.innerHTML = targetNav.innerHTML;
                 currentNav.removeAttribute('mounted');
             } catch(e) {
@@ -37,7 +37,7 @@ const Reload = {
         // process body
         document.body.classList.add('not-ready');
         document.body.classList.remove('being-replaced');
-        NEO_REPLACE_NODE.innerHTML = newDocument.querySelector('#NEO_REPLACE').innerHTML;
+        NEO_REPLACE_NODE.innerHTML = newDocument.querySelector('#centerCol').innerHTML;
         document.body.classList.remove('not-ready');
         // scroll pos
         DoOthers();

@@ -3,6 +3,8 @@ import { _i18n, ltl } from "./language.mjs";
 import SVGS, { get_material_symbols, reset_material_symbols } from "./svgs.mjs";
 import { languages } from "./append_page.mjs";
 import { get_fa_brand } from "./fontawesome.mjs";
+import { theme, themeToCss } from "./color.mjs";
+import { writeFile } from "fs";
 
 let SVG_USED = [];
 
@@ -75,8 +77,16 @@ export default function (ctx) {
         _i18n: _i18n(ctx),
         _i18n_lang(current){
             return languages[current];
-        }
+        },
+        array_unique: (array) => [...new Set(array)]
     };
-    ctx.plugin.helpers.array_unique = (array) => [... new Set(array)]
     Object.assign(ctx.plugin.helpers,helpers);
+
+    ctx.on('afterDeploy',(ctx)=>{
+        writeFile(join(ctx.PUBLIC_DIRECTORY,'css/_color.css'),themeToCss(theme),(err)=>{
+            if(err){
+                console.error(err);
+            }
+        });
+    });
 }

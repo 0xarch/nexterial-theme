@@ -9,10 +9,17 @@ export default function append_page(ctx) {
         }
     }
     ctx.plugin.append_pages.push({
-        type: 'side_widget',
+        type: 'side.left',
         get(ctx) {
             return [
-                ...languages.map(v=> join(ctx.PUBLIC_DIRECTORY, `neo/side-widgets.${v}/index.html`))
+                ...languages.map(v=> join(ctx.PUBLIC_DIRECTORY, `neo/side.left.${v}/index.html`))
+            ];
+        }
+    },{
+        type: 'side.right',
+        get(ctx) {
+            return [
+                ...languages.map(v=> join(ctx.PUBLIC_DIRECTORY, `neo/side.right.${v}/index.html`))
             ];
         }
     },{

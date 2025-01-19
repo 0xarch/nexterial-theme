@@ -1,11 +1,11 @@
-export function navBarInit() {
+export async function navBarInit() {
     try {
-        const NAV_ROOT = document.querySelector('header.global');
+        const NAV_ROOT = document.querySelector('#globalHeader');
         // Global Focus
         let lastKnownScrollPosition = 0;
         let ticking = false;
         function NavFloatToggle(scrollPos) {
-            if (scrollPos >= visualViewport.height / 100 * 37.75 - 5.5 * SINGLE_REM) {
+            if (scrollPos >= 1 * SINGLE_REM) {
                 document.body.classList.add('focus');
             } else {
                 document.body.classList.remove('focus');
@@ -23,7 +23,7 @@ export function navBarInit() {
                 ticking = true;
             }
         });
-        palette();
+        search();
         hamburger();
         NAV_ROOT.setAttribute('mounted', 'true');
     } catch (e) {
@@ -61,7 +61,7 @@ function __listen(triggerElement, targetElement, callback) {
 }
 
 function hamburger() {
-    const NAV_ROOT = document.querySelector('header.global');
+    const NAV_ROOT = document.querySelector('#globalHeader');
     const NAV_BAR_TOGGLE = NAV_ROOT.querySelector('.toggle');
     const menuElement = NAV_ROOT.querySelector('.links');
     __listen(NAV_BAR_TOGGLE, menuElement, (panelIsOn) => {
@@ -70,9 +70,9 @@ function hamburger() {
 }
 
 function palette() {
-    let paletteButton = document.querySelector('header.global .operations .palette');
-    let palettePanel = document.querySelector('header.global .operation-container .palette');
-    __listen(paletteButton, palettePanel,(on)=>{
+    let paletteButton = document.querySelector('#globalHeader .operations .palette');
+    let palettePanel = document.querySelector('#globalHeader .operation-container .palette');
+    __listen(paletteButton, palettePanel, (on) => {
         palettePanel.classList[on ? 'add' : 'remove']('on');
     });
     let numberShower = palettePanel.querySelector('.number-show');
@@ -103,4 +103,65 @@ function palette() {
         localStorage.setItem('0xarch.github.io/color-hue', inputer.value);
         docRoot.style.setProperty('--config-hue', inputer.value);
     });
+}
+
+function search() {
+    const Button = document.getElementById('headerButtonSearch');
+    const Menu = document.getElementById('headerComponentSearch');
+    __listen(Button, Menu, (on) => {
+        Menu.classList[on ? 'add' : 'remove']('on');
+    });
+    let objPromise = (async () => {
+        let raw = await fetch("/search.json");
+        let json = await raw.json();
+        return Object.entries(json);
+    })();
+    /**
+     * @type {HTMLInputElement}
+     */
+    let input = Menu.querySelector('input');
+    let clearButton = Menu.querySelector('.clear');
+    let searchButton = Menu.querySelector('.search');
+    let resultContainer = Menu.querySelector('.resultContainer');
+    let shouldRun = true;
+    async function doSearch() {
+        if (!shouldRun) return;
+        shouldRun = false;
+        let leastTimer = new Promise((r) => {
+            setTimeout(() => {
+                r();
+            }, 350);
+        })
+        let obj = await objPromise;
+        let queryString = input.value;
+        let results = [];
+        if (queryString === '') {
+        } else {
+            for (let [k, v] of obj) {
+                if (typeof v.c === 'string' && v.c.includes(queryString)) {
+                    results.push([k, v.t]);
+                } else if (typeof v.t === 'string' && v.t.includes(queryString)) {
+                    results.push([k, v.t]);
+                }
+            }
+            resultContainer.innerHTML = '';
+            results.forEach(v => {
+                resultContainer.innerHTML += `<a class="--smooth" href=/${v[0]}><b>${v[1]}</b><span>${v[0]}</span></a>`;
+            });
+            centerPjax.refresh(resultContainer);
+        }
+        await leastTimer;
+        shouldRun = true;
+    }
+    input.addEventListener('keydown', (ev) => {
+        if (ev.key === 'Enter') {
+            doSearch();
+        }
+    });
+    searchButton.addEventListener('click', () => {
+        doSearch();
+    });
+    clearButton.addEventListener('click', () => {
+        input.value = '';
+    })
 }

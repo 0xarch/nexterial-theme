@@ -28,20 +28,21 @@
             height: 2.5rem;
             width: 2.5rem;
             font-size: 1.5rem;
-            border-radius: $card-corner-75;
+            border-radius: 100vmax;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: var(--Cbtn-content);
-            background-color: var(--Cbtn-regular-bg);
-            transition: background-color .25s ease-in-out;
+            color: var(--onSurface);
+            background-color: var(--surface);
+            transition: background-color .125s ease-in-out, color .125s ease-in-out;
 
-            & svg{
+            & svg {
                 height: 1em;
             }
 
             &:hover {
-                background-color: var(--Cbtn-regular-bg-hover);
+                background-color: var(--surfaceVariant);
+                color: var(--onSurfaceVariant);
             }
         }
     }
@@ -58,9 +59,13 @@
     width: fit-content;
 
     & a {
-        transition: color .25s ease-in-out;
-        color: var(--Cdisplay);
-
+        transition: color .125s ease-in-out, background-color .125s ease-in-out;
+        color: var(--onSurface);
+        background-color: var(--surface);
+        display: block;
+        padding: .125rem 1rem;
+        border-radius: 100vmax;
+        line-height: 1.75rem;
     }
 
     &::after {
@@ -70,17 +75,19 @@
         height: .25rem;
         left: calc(50% - .5rem);
         width: 1rem;
-        background-color: var(--Cbrand);
+        background-color: var(--primary);
         border-radius: $card-corner-circle;
         pointer-events: none;
         transition-property: left, width;
         transition-duration: .25s;
         transition-timing-function: ease-in-out;
-
     }
 
-    &:hover a {
-        color: var(--Cbrand);
+    &:hover {
+        & a {
+            color: var(--onPrimary);
+            background-color: var(--primary);
+        }
 
         &::after {
             left: calc(50% - 1rem);
@@ -160,13 +167,27 @@
     &>.tag {
         border-radius: $card-corner-50;
         display: block;
-        padding: .5rem;
+        padding-left: .5rem;
+        line-height: 2.5rem;
+        height: 2.5rem;
         color: var(--Cbtn-content);
         background: var(--Cbtn-regular-bg);
         transition: background-color .2s ease-in-out;
+        overflow: hidden;
 
         &:hover {
             background-color: var(--Cbtn-regular-bg-hover);
+        }
+
+        &::after {
+            content: attr(count);
+            display: inline-block;
+            margin-left: .5rem;
+            width: 2.5rem;
+            height: 2.5rem;
+            background-color: var(--Cbg);
+            text-align: center;
+            line-height: 2.5rem;
         }
     }
 }
@@ -175,14 +196,13 @@
     display: none;
 }
 
-@media( min-width: 1024px) {
+@media(min-width: 1024px) {
     $line-height: 1.35rem;
+
     #markdown_TOC {
-        position: fixed;
+        max-height: 80vh;
+        overflow: auto;
         list-style: none;
-        top: 5rem;
-        right: calc($card-gap * 1.5);
-        width: calc((100vw - var(--Wpage-width))/2 - 3 * $card-gap);
         display: flex;
         flex-direction: column;
         counter-reset: toc_counter_h2;
@@ -190,15 +210,13 @@
         line-height: #{$line-height};
         font-size: .975rem;
         opacity: 1;
-        transition: opacity .125s ease-in-out;
+        transition: opacity .125s ease-in-out, max-height .35s ease-in-out, padding .35s ease-in-out;
     }
 
-    #markdown_TOC.hide {
-        opacity: 0;
-        pointer-events: none;
-    }
-
-    #markdown_TOC>*{
+    #markdown_TOC>* {
+        text-wrap: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
         cursor: pointer;
         display: flex;
         border-radius: $card-corner-50;
@@ -211,7 +229,7 @@
         padding: .25rem;
     }
 
-    #markdown_TOC .li-2::before{
+    #markdown_TOC .li-2::before {
         counter-increment: toc_counter_h2;
         content: counter(toc_counter_h2);
         display: inline-block;
@@ -227,7 +245,7 @@
         font-family: "Hack", "monospace", monospace;
     }
 
-    @each $level in (3,4,5,6) {
+    @each $level in (3, 4, 5, 6) {
         #markdown_TOC .li-#{$level} {
             color: var(--Ctext-50);
             line-height: #{$line-height};
@@ -255,4 +273,8 @@
     #markdown_TOC>*:hover {
         background-color: var(--Cbtn-regular-bg);
     }
+}
+
+#markdown_TOC:empty {
+    display: none !important;
 }

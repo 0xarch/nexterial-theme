@@ -1,63 +1,92 @@
 import { navBarInit } from './navBar.mjs';
-import { toc } from './toc.mjs';
-import { findAndInitGiscus } from './giscus.mjs';
-import Reload from './smoothNav.mjs';
+import { findAndInitGiscus, generateCodeLine, generateToc } from './some.mjs';
+
+globalThis._Emitter = {
+    emitted: {},
+    on(emitName,fn){
+        this.emitted[emitName] ??= [];
+        this.emitted[emitName].push(fn);
+    },
+    emit(emitName,...args){
+        if(Array.isArray(this.emitted[emitName])){
+            this.emitted[emitName].forEach(v => {
+                v(...args);
+            })
+        }
+    },
+    clearEmit(emitName){
+        this.emitted[emitName] = [];
+    }
+};
 
 ((window) => {
-    window.SINGLE_REM = parseInt(window.getComputedStyle(document.documentElement).fontSize);
+    globalThis.SINGLE_REM = parseInt(window.getComputedStyle(document.documentElement).fontSize);
     globalThis.scrollToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' });
 })(window);
 
-(function (window) {
-    window.passedLocation = [window.location.href];
-    window.onpopstate = function () {
-        passedLocation.pop();
-        if (!passedLocation.length) return;
-        window.Reload.goTo(passedLocation[passedLocation.length - 1], true, DoOthers);
-    };
-    window.Reload = Reload;
-})(window, void 0);
+const centerPjax = new Pjax({
+    elements: "a.--smooth",
+    selectors: [
+        "#centerCol",
+        "#globalHeader",
+        "title"
+    ],
+    cacheBust: false,
+    scrollTo: false
+});
+
+let oldLang = document.documentElement.lang, newLang = document.documentElement.lang;
+
+async function mountWidgets(lang = document.documentElement.lang) {
+    try {
+        let leftContent = await ((await fetch(`/neo/side.left.${lang}/index.html`)).text());
+        let rightContent = await ((await fetch(`/neo/side.right.${lang}/index.html`)).text());
+        document.getElementById('leftCol').innerHTML = leftContent;
+        document.getElementById('rightCol').innerHTML = rightContent;
+        centerPjax.refresh();
+    } catch (e) {
+        console.error(e);
+    }
+}
+
+async function dealMultiLanguage() {
+    if (oldLang != newLang) {
+        console.log(oldLang,'is different from',newLang);
+        await mountWidgets(newLang);
+    }
+}
+
+async function doPageWork() {
+    findAndInitGiscus();
+    await dealMultiLanguage();
+    await generateCodeLine();
+    await generateToc();
+    scrollToTop();
+    document.querySelectorAll('#markdown_fillContent img')?.forEach?.(el =>{
+        el.src = el.src;
+    });
+}
+
+document.addEventListener('pjax:send', (e) => {
+    console.log('Pjax start', e);
+    oldLang = document.body.querySelector('#centerCol').lang;
+    document.body.classList.remove('anim-ready');
+});
+
+document.addEventListener('pjax:complete', async (e) => {
+    console.log('Pjax end', e);
+    newLang = document.body.querySelector('#centerCol').lang;
+    navBarInit();
+    await doPageWork(e);
+    await new Promise((r)=>{
+        setTimeout(r,0);
+    });
+    document.body.classList.add('anim-ready');
+})
+
+window.centerPjax = centerPjax;
 
 function DoOthers() {
-    document.body.classList.remove('main-anim-finished');
-    // giscus
-    findAndInitGiscus();
-    // TOC
-    toc();
-    // NavigationBar
-    navBarInit();
-    // Smooth Navigate
-    document.querySelectorAll('a.--smooth').forEach(el => {
-        el.addEventListener('click', (e) => {
-            e.preventDefault();
-            Reload.goTo(el.href, undefined, DoOthers);
-        })
-        el.classList.remove('--smooth');
-    })
-    // highlight
-    setTimeout(() => {
-        if (window.hljs) {
-            hljs.highlightAll();
-        }
-        document.querySelectorAll('#markdown_fillContent pre').forEach(element => {
-            let code = element.querySelector('code');
-            let con = document.createElement('div'), len = code.textContent.split("\n").length;
-            con.classList.add('line-index');
-            con.setAttribute('aria-hidden', true);
-            for (let i = 1; i < len; i++) {
-                let index_el = document.createElement('i');
-                index_el.textContent = i;
-                con.appendChild(index_el);
-            }
-            element.appendChild(con);
-        });
-    }, 500);
-    // animation
-    document.body.classList.add('main-anim');
-    setTimeout(() => {
-        document.body.classList.remove('main-anim');
-        document.body.classList.add('main-anim-finished');
-    }, 350);
     // search
     try {
         const Q = (v, s) => v.querySelector(s);
@@ -102,40 +131,37 @@ function DoOthers() {
 
     } catch (e) { }
 }
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
     if (localStorage.getItem('0xarch.github.io/color-hue'))
         document.documentElement.style.setProperty('--config-hue', localStorage.getItem('0xarch.github.io/color-hue'));
-    new Promise((resolve, reject) => {
-        try {
-            if (document.getElementById('NEO_SIDE')) {
-                fetch(`/neo/side-widgets.${document.documentElement.lang}/index.html`)
-                    .then((resp) => resp.text())
-                    .then((value) => {
-                        document.getElementById('NEO_SIDE').innerHTML = value;
-                        resolve();
-                    });
-            } else {
-                resolve();
-            }
-        } catch (e) { }
-    }).then(() => {
-        document.body.classList.add('dom-loaded');
-        setTimeout(scrollToTop, 0);
-        DoOthers();
-        try {
-            const NAV_ROOT = document.querySelector('header.global');
-            NAV_ROOT.classList.add('anim');
-            setTimeout(() => {
-                NAV_ROOT.classList.remove('anim')
-            }, 500);
-        } catch (e) { }
-    });
+    navBarInit();
+    await mountWidgets();
+    document.body.classList.add('dom-loaded');
+    setTimeout(scrollToTop, 0);
+    doPageWork();
+    onResize();
 })
+
+let tickingResize = false;
+
+function onResize() {
+    if (tickingResize) return;
+    tickingResize = true;
+    window.requestAnimationFrame(() => {
+        if (window.innerWidth <= 1024) {
+            let left = document.querySelector('#leftColWrapper');
+            let right = document.querySelector('#rightCol');
+            left.appendChild(right);
+        } else {
+            let main = document.querySelector('#globalMain');
+            let right = document.querySelector('#rightCol');
+            main.appendChild(right);
+        }
+        tickingResize = false;
+    });
+}
+
+window.addEventListener('resize', onResize);
 window.addEventListener('load', () => {
     document.body.classList.add('loaded');
 });
-document.addEventListener('DOMContentLoaded',()=>{
-    if(document.querySelector('meta[data-nosplash="1"]') && window.location.href.endsWith('/')){
-        history.replaceState('','', window.location.href.slice(0,window.location.href.length-1));
-    }
-})

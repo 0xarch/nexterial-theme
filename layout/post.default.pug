@@ -7,7 +7,7 @@ append head
 block content
     .post-main.NeoWidget
         +post-meta(page,true)
-        if(page.properties.image)
+        if page.properties.image && !page.properties.__is_generated_image
             .post-img
                 img(src=page.properties.image,alt='The image of this article.')
         +multi-language(page)
@@ -24,4 +24,3 @@ block content
         a.--smooth.right(href=!is_earliest&&url_for(page.next.relative_path),class=is_earliest?'disabled':'')
             .title= is_earliest?__('Already earliest'):page.next.title
             .arrow!= _icon('material-symbols:chevron_right','rounded')
-    #markdown_TOC

@@ -170,3 +170,103 @@
     background-color: var(--Cbg);
     border-radius: $card-corner-75;
 }
+
+.postCard {
+    display: block;
+    height: 28rem;
+    box-sizing: border-box;
+    padding: $card-padding;
+    overflow: hidden;
+    position: relative;
+    text-decoration: none;
+    border-radius: $card-corner;
+    color: var(--onSurfaceVariant);
+    transition: color .125s ease-in-out, border-radius .125s ease-in-out;
+    cursor: pointer;
+
+    &::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background-color: var(--surfaceVariant);
+        opacity: .35;
+        transition: background-color .125s ease-in-out, opacity .125s ease-in-out;
+        z-index: 1;
+    }
+
+    &>.wrapper {
+        z-index: 2;
+        position: relative;
+
+        &>.imageWrapper {
+            height: 15rem;
+            width: calc(100% + 2*$card-padding);
+            border-radius: $card-gap;
+            overflow: hidden;
+            box-sizing: border-box;
+            margin: calc(-1 * $card-padding) calc(-1 * $card-padding) 0;
+            background-position: center center;
+            background-size: cover;
+
+            &.svg {
+                &>svg {
+                    background-color: var(--secondaryContainer);
+    
+                    &>circle[o="1"]{
+                        fill: var(--onSecondaryContainer);
+                    }
+                    &>circle[o="0"]{
+                        fill: var(--secondary);
+                    }
+
+                    &>[t="t"] {
+                        stroke-width: 1.5rem;
+                        stroke-linejoin: round;
+                        transform-origin: center center;
+
+                        &[o="0"]{
+                            fill: var(--secondary);
+                            stroke: var(--secondary);
+                        }
+
+                        &[o="1"]{
+                            fill: var(--onSecondaryContainer);
+                            stroke: var(--onSecondaryContainer);
+                        }
+                    }
+                }
+            }
+
+        }
+    
+        &>date {
+            display: block;
+            margin-top: .75rem;
+        }
+    
+        &>h2{
+            font-size: 2rem;
+            margin: .75rem 0 0;
+            line-height: 1.9rem;
+        }
+    
+        &>span {
+            font-size: 1.125rem;
+            margin: .5rem 0 0;
+            display: block;
+            box-sizing: border-box;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+    }
+
+    &:hover {
+        color: var(--onPrimaryContainer);
+        border-radius: calc(2 * $card-corner);
+
+        &::before {
+            background-color: var(--primaryContainer);
+            opacity: .75;
+        }
+    }
+}

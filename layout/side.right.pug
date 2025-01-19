@@ -1,0 +1,6 @@
+.side.toc.NeoWidget#markdown_TOC
+.side.tag-list.NeoWidget
+    h2= _i18n('Tags',_i18n_lang(page.current))
+    .tags-container
+        each v in site.tags
+            a.--smooth.tag(href=url_for(`/tags/${v.key}/0/index.html`),count=v.values.length)= v.key

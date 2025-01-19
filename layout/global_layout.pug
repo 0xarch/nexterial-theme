@@ -16,38 +16,50 @@ html(lang=page.language)
             meta(name="darkreader-lock")
             meta(name="viewport",content="width:device-width,initial-scale=1.0")
             meta(name="author" content=page.author || ctx.config.author)
-            //- link(data-across='1',rel="stylesheet",href="https://cdn.jsdelivr.net/npm/roboto-font@0.1.0/css/fonts.min.css")
-            link(data-across='1',rel="icon",href=url_for("icon.svg"))
-            link(data-across='1',rel='stylesheet',href=url_for('css/admon-extra.css'))
-            link(data-across='1',rel='stylesheet',href=url_for('css/global.css'))
-            link(data-across='1',rel='stylesheet',href=url_for('css/global_frame.css'))
-            link(data-across='1',rel='stylesheet',href=url_for('css/global_side.css'))
-            link(data-across='1',rel='stylesheet',href=url_for('css/global_page.css'))
-            link(data-across='1',rel='stylesheet',href=url_for('css/global_widgets.css'))
-            script(data-across='1',type="module",src=url_for('es/ui.js'))
+            link(rel="icon",href=url_for("icon.svg"))
+            link(rel='stylesheet',href=url_for('css/_color.css'))
+            link(rel='stylesheet',href=url_for('css/font.css'))
+            link(rel='stylesheet',href=url_for('css/admon-extra.css'))
+            link(rel='stylesheet',href=url_for('css/global.css'))
+            link(rel='stylesheet',href=url_for('css/global_frame.css'))
+            link(rel='stylesheet',href=url_for('css/global_side.css'))
+            link(rel='stylesheet',href=url_for('css/global_page.css'))
+            link(rel='stylesheet',href=url_for('css/global_widgets.css'))
+            script(src='https://lib.baomitu.com/pjax/0.2.8/pjax.min.js')
+            script(type="module",src=url_for('es/ui.js'))
 
-    body(OCP='OVERRIDE')
+    body(class='anim-ready')
         .loading-circle(aria-hidden="true")
-        header.global
-            a.--smooth.kLogo(href=url_for('/'))
-                .home-icon!= _icon('material-symbols:home','rounded')
-                .text!= ctx.config.title || `${ctx.config.author}'s Blog`
-            .links
-                a.--smooth.home(href=url_for('/'))= __('Home')
-                a.--smooth.archives(href=url_for('/archives/0/'))= __('Archives')
-            .operations
-                .palette!= _icon('material-symbols:palette','rounded')
-                .toggle!= _icon('material-symbols:menu','rounded')
-            .operation-container
-                .palette
-                    .line
-                        .reset-button!= _icon('material-symbols:refresh','rounded')
-                        .number-show
-                    .scroll
-                        input.scroller(value=250,type='range',min=0,max=360,step=5) 
-        main.no-anim#NEO_MAIN
-            .sideCon#NEO_SIDE
-                include side_widget.pug
-            .mainCon#NEO_REPLACE
+        header#globalHeader
+            block header
+                .links
+                    a.--smooth.home(href=url_for('/'))
+                        != _icon('material-symbols:home','rounded')
+                        b!= __('Home')
+                    a.--smooth.archives(href=url_for('/archives/0/'))
+                        != _icon('material-symbols:archive','rounded')
+                        b!= __('Archives')
+                    a.--smooth.about(href=url_for('/posts/about.md'))
+                        != _icon('material-symbols:for_you','rounded')
+                        b!= __('About')
+                .operations
+                    #headerButtonToggle.toggle.RPL!= _icon('material-symbols:menu','rounded')
+                    #headerButtonSearch.RPL!= _icon('material-symbols:search','rounded')
+                .operation-container
+                    #headerComponentSearch
+                        .queryContainer 
+                            input
+                            button.clear!= _icon('material-symbols:refresh','rounded')
+                            button.search!= _icon('material-symbols:search','rounded')
+                        .resultContainer
+        main#globalMain
+            #leftColWrapper
+                #leftCol
+                    block left
+            #rightCol
+                block right
+            #centerCol(lang=page.language)
                 block content
-        footer.global
+                block center
+        footer#globalFooter
+            block footer
