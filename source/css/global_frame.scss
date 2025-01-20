@@ -219,7 +219,7 @@
 }
 
 .license {
-    background: var(--Cbg);
+    background: var(--surfaceVariant);
     border-radius: 1rem;
     width: 100%;
     padding: 1.5rem;
@@ -233,11 +233,11 @@
     overflow: hidden;
 
     & a {
-        color: var(--Cbtn-content);
+        color: var(--onSurfaceVariant);
         text-decoration: none;
 
         &:hover {
-            color: var(--Cbrand);
+            color: var(--primary);
         }
     }
 

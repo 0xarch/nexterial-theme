@@ -5,22 +5,10 @@
     padding: 0 1rem 0 1.25rem;
     position: relative;
     line-height: 1.5rem;
-    margin: 1rem -1rem;
     padding: 1rem;
     box-sizing: border-box;
     color: var(--aclr);
-
-    &:first-child {
-        margin: -1rem -1rem 1rem;
-    }
-
-    &:last-child {
-        margin: 1rem -1rem -1rem;
-    }
-
-    &+&{
-        margin: -1rem -1rem 1rem;
-    }
+    border-radius: 1rem;
 
     & pre {
         &::before {
@@ -48,6 +36,7 @@
     display: block;
     opacity: .125;
     pointer-events: none;
+    border-radius: 1rem;
 }
 
 .admonition>.admonition-title {

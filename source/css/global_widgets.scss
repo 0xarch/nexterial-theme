@@ -149,18 +149,22 @@
 .banner {
     display: flex;
     align-items: center;
-    color: var(--Ctext-75);
-    background-color: var(--Cbtn-regular-bg);
-    margin: 1rem -1rem;
+    color: var(--onPrimaryContainer);
+    background-color: var(--primaryContainer);
+    margin: 0;
     padding: 1rem;
     box-sizing: border-box;
 
     &:first-child {
-        margin: -1rem -1rem 1rem;
+        margin-top: 1rem;
+        border-top-left-radius: 1rem;
+        border-top-right-radius: 1rem;
     }
 
     &:last-child {
-        margin: 1rem -1rem -1rem;
+        margin-bottom: 1rem;
+        border-bottom-left-radius: 1rem;
+        border-bottom-right-radius: 1rem;
     }
 }
 

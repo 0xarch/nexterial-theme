@@ -5,7 +5,7 @@ append head
     title #{page.title} - #{ctx.config.title}
 
 block content
-    .post-main.NeoWidget
+    .postMain
         +post-meta(page,true)
         if page.properties.image && !page.properties.__is_generated_image
             .post-img

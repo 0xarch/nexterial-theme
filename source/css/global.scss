@@ -75,6 +75,11 @@ body {
     padding: 0;
 }
 
+* {
+    text-decoration: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
 .loading-circle {
     $r: 5rem;
     position: fixed;
@@ -268,7 +273,7 @@ symbol path {
 
     &>.operations {
         display: flex;
-        gap: .125rem;
+        gap: .25rem;
     }
 
     & .toggle {
@@ -349,14 +354,19 @@ symbol path {
                 text-align: center;
                 flex-direction: row;
 
-                & svg {
+                &>svg {
                     font-size: 2rem;
                     margin-right: .5rem;
                 }
 
-                & b {
+                &>b {
                     color: inherit;
                     opacity: 1;
+                    height: fit-content;
+
+                }
+
+                &:hover>b {
                     height: fit-content;
                 }
             }
