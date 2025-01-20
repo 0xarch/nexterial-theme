@@ -7,7 +7,7 @@ mixin labeled-card(post,config)
             date
                 != !showYear ? post.date.format('MM-DD') : post.date.format('YYYY-MM-DD')
             .title= post.title
-            .append
-                if showTag
-                    each v in post.tags
-                        .tag= '#' + v
+            //- .append
+            //-     if showTag
+            //-         each v in post.tags
+            //-             .tag= '#' + v

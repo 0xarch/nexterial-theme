@@ -4,7 +4,7 @@ append head
     title #{__('Archives')} - #{ctx.config.title}
 
 block content
-    .NeoWidget
+    .archives
         - let used_year = []
         - let y = {}
         each post in site.posts.slice(page.current*10,page.current*10+10)
@@ -16,12 +16,9 @@ block content
         - used_year.sort((a,b)=>b-a)
         each k in used_year
             - let v= y[k]
-            h2.archive-label
-                .year=k
-                .ball(aria-hidden=true)
-                .count= v.length == 1 ? __(`${v.length} article`) : __(`${v.length} articles`)
-            ul.index-ul
+            h2.archive-label.new!= k
+            ul.index-ul.new
                 each post in v
                     li
-                        +labeled-card(post)
+                        +post-card(post)
     +page-navigator(page.total,page.current,'/archives')

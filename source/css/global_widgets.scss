@@ -5,13 +5,14 @@
     display: block;
     box-sizing: border-box;
     max-width: 100%;
-    background-color: #0000;
-    transition: background-color .25s ease-in-out;
-    border-radius: $card-corner-75;
+    background-color: var(--surface);
+    transition: background-color .125s ease-in-out, color .125s ease-in-out;
+    border-radius: $card-corner;
     margin: 0 1rem;
 
     &:hover {
-        background-color: var(--Cbtn-plain-bg-hover);
+        background-color: var(--primaryContainer);
+        color: var(--onPrimaryContainer);
     }
 
     &>a {
@@ -25,15 +26,16 @@
         box-sizing: border-box;
         cursor: pointer;
         text-decoration: none;
+        color: var(--onSurface);
+        transition: color .125s ease-in-out;
 
         &>date {
-            color: var(--Ctext-50);
             width: 4rem;
             text-align: right;
         }
 
         &>.title {
-            color: var(--Cbrand);
+            color: var(--primary);
             font-weight: 900;
             font-size: 1.1rem;
             line-height: 1.5rem;
@@ -52,22 +54,11 @@
             box-sizing: border-box;
             margin-right: 1rem;
         }
-
-        &>.append {
-            color: var(--Ctext-25);
-            font-size: .875rem;
-            gap: .5rem;
-
-            &>.tag {
-                display: inline;
-            }
-
-        }
     }
 }
 
 .post-meta {
-    color: var(--Ctext-25);
+    color: var(--onSurface);
     font-weight: 900;
     overflow: hidden;
     width: 100%;
@@ -203,14 +194,15 @@
         position: relative;
 
         &>.imageWrapper {
-            height: 15rem;
             width: calc(100% + 2*$card-padding);
+            aspect-ratio: 2;
             border-radius: $card-gap;
             overflow: hidden;
             box-sizing: border-box;
             margin: calc(-1 * $card-padding) calc(-1 * $card-padding) 0;
             background-position: center center;
             background-size: cover;
+            background-repeat: no-repeat;
 
             &.svg {
                 &>svg {
