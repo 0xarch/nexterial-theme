@@ -45,9 +45,9 @@ const TOC = (markdown_content, toc) => {
         console.error(`No {toc} specified.`);
         return;
     }
+    toc.innerHTML = '';
     if (!markdown_content) {
         console.error(`No {markdown_content} specified.`);
-        toc.innerHTML = '';
         return;
     }
     let tocList = markdown_content.querySelectorAll("h2, h3, h4, h5, h6");
@@ -56,7 +56,6 @@ const TOC = (markdown_content, toc) => {
         const H = v.nodeName[1];
         let li = document.createElement('li');
         li.classList.add(`li-${H}`);
-        // li.setAttribute('pid', pid);
         li.textContent = v.textContent;
         li.addEventListener("click", () => {
             window.scrollBy({ top: v.getBoundingClientRect().y, behavior: "smooth" });

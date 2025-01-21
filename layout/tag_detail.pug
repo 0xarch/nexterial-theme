@@ -5,10 +5,10 @@ append head
 
 block content
     - let current_container = _container_of('tags',page.current)
-    .NeoWidget
-        h2.archive-label #{current_container.key}
-        ul.index-ul
+    .tags
+        h2.archive-label.new #{current_container.key}
+        ul.index-ul.new
             each post in current_container.values
                 li
-                    +labeled-card(post)
+                    +post-card(post)
     +page-navigator(current_container.total,current_container.current,`/tags/${current_container.key}`)

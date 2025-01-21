@@ -1,4 +1,4 @@
-.side.user-intro.NeoWidget
+.side.user-intro
     if ctx.config.avatar
         img.avatar(loading='lazy',src=ctx.config.avatar)
     h2.userName
@@ -7,8 +7,8 @@
     .socialLinks
         each val,key in ctx.config.social_links || {}
             a.link(href=val.url,title=key)!=get_fa_brand(val.icon)
-.side.category-list.NeoWidget
-    h2= _i18n('Categories',_i18n_lang(page.current))
-    .cates-container
-        each v in site.categories
-            a.--smooth.cate(data-count=v.values.length,href=url_for(`/categories/${v.key}/0/index.html`))= v.key
+//- .side.category-list.NeoWidget
+//-     h2= _i18n('Categories',_i18n_lang(page.current))
+//-     .cates-container
+//-         each v in site.categories
+//-             a.--smooth.cate(data-count=v.values.length,href=url_for(`/categories/${v.key}/0/index.html`))= v.key

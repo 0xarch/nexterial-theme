@@ -63,6 +63,48 @@
     }
 }
 
+.index-ul.tags {
+    margin-top: -1rem;
+}
+
+.index-ul.tags>li {
+    position: relative;
+    box-sizing: border-box;
+    line-height: 1.5rem;
+    font-size: 1.5rem;
+    color: var(--onSurfaceVariant);
+    transition: $t-background-color, $t-color;
+
+    &>a {
+        color: inherit;
+        z-index: 2;
+        position: relative;
+        display: block;
+        padding: 1.25rem;
+        box-sizing: border-box;
+    }
+
+    &::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        z-index: 1;
+        opacity: .5;
+        border-radius: 1rem;
+        background-color: var(--surfaceVariant);
+        transition: $t-background-color, $t-border-radius, $t-opacity;
+    }
+
+    &:hover {
+        color: var(--onPrimary);
+        &::before {
+            background-color: var(--primary);
+            border-radius: 1.5rem;
+            opacity: 1;
+        }
+    }
+}
+
 /* post-fix */
 
 .post-img {
@@ -84,17 +126,15 @@
 }
 
 #markdown_fillContent a {
-    text-decoration: noe;
-    color: var(--Cbrand);
+    text-decoration: none;
+    color: var(--source);
 }
 
 #markdown_fillContent code {
-    color: var(--Cbrand);
     font-weight: bold;
 }
 
 #markdown_fillContent pre code {
-    color: var(--Ctext-75);
     font-weight: normal;
 }
 
@@ -147,8 +187,8 @@ img {
 
 code {
     padding: .25rem;
-    color: var(--Cdisplay);
-    background-color: var(--Cbg);
+    color: var(--onSurfaceVariant);
+    background-color: var(--surfaceVariant);
     border-radius: $card-corner-25;
     font-family: var(--font-family-mono);
 }
@@ -157,8 +197,6 @@ pre code,
 pre code.hljs {
     display: block;
     padding: .5rem;
-    background-color: var(--Cbg);
-    color: var(--Cdisplay);
     border-radius: $card-corner-50;
     position: relative;
     font-size: 1rem;
@@ -175,12 +213,11 @@ pre {
     position: relative;
     padding-left: 2rem;
     border-radius: $card-corner-50;
-    background-color: var(--Cbg);
+    background-color: var(--surfaceVariant);
+    color: var(--onSurfaceVariant);
 }
 
 pre>.line-index {
-    color: var(--Ctext-25);
-    background-color: var(--Cbg);
     user-select: none;
     position: absolute;
     left: .5rem;
@@ -204,7 +241,8 @@ blockquote {
     margin: .25rem;
     border-radius: $card-corner-50;
     padding: .25rem .75rem;
-    background-color: var(--Cbg);
+    background-color: var(--surface);
+    color: var(--onSurface);
     width: fit-content;
 }
 
@@ -212,7 +250,7 @@ blockquote {
     color: #0000;
     font-size: 0;
     height: .5rem;
-    background-color: var(--Cbg);
+    background-color: var(--outline);
     border-radius: 1rem;
     width: 75%;
     left: 12.5%;
@@ -274,11 +312,13 @@ blockquote {
 
 .multi-language {
     user-select: none;
+    margin: 1rem 0 !important;
+    border-radius: 1rem;
+    line-height: 1.5rem;
 
     &>.img {
         height: fit-content;
         margin-right: .5rem;
-        color: var(--Cbrand);
         font-size: 1.5rem;
 
         &>svg {
@@ -288,7 +328,6 @@ blockquote {
 
     &>.ml-tip {
         margin: 0;
-        margin-right: .25rem;
     }
 
     &>.availables {
@@ -297,17 +336,17 @@ blockquote {
         height: fit-content;
 
         & a {
-            display: block;
             box-sizing: border-box;
-            padding: .25rem;
-            color: var(--Cbtn-content);
-            border-radius: $card-corner-25;
-            background: transparent;
-            transition: background .125s ease-in-out;
+            padding: .25rem .5rem;
+            color:inherit;
+            border-radius: .75rem;
+            background-color: transparent;
+            transition: $t-color, $t-background-color;
             text-decoration: none;
 
             &:hover {
-                background-color: var(--Cbtn-regular-bg-hover);
+                background-color: var(--primary);
+                color: var(--onPrimary);
             }
         }
     }

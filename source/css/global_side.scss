@@ -21,6 +21,8 @@
     .socialLinks {
         display: flex;
         align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
         margin: 1rem 1rem 0;
         gap: 1rem;
 
@@ -46,6 +48,13 @@
                 color: var(--onSurfaceVariant);
             }
         }
+    }
+
+    .intro {
+        border: 1px solid var(--outline);
+        border-radius: 1rem;
+        padding: .5rem;
+        text-align: center;
     }
 }
 
@@ -98,182 +107,116 @@
     }
 }
 
-@each $type in (category, tag) {
-    .side.#{$type}-list {
-        & a {
-            text-decoration: none;
-        }
-
-        &>h2 {
-            line-height: 1.25rem;
-            font-size: 1.25rem;
-            margin: .75rem 1rem 1rem;
-            position: relative;
-
-            &::before {
-                content: '';
-                background-color: var(--Cbrand);
-                width: .25rem;
-                height: 100%;
-                left: -.75rem;
-                position: absolute;
-                display: block;
-                border-radius: $card-corner-circle;
-            }
-        }
-    }
-}
-
-.side.category-list>.cates-container {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    gap: .5rem;
-
-    &>.cate {
-        border-radius: $card-corner-50;
-        display: flex;
+@media (max-width: 1024px) {
+    .side.user-intro {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: auto auto auto;
+        gap: .5rem;
         padding: .5rem;
-        align-items: center;
-        color: var(--Ctext-75);
-        background: transparent;
-        transition: background-color .2s ease-in-out, color .2s ease-in-out;
 
-        &:hover {
-            color: var(--Cbtn-content);
-            background: var(--Cbtn-regular-bg);
+        &>img.avatar {
+            grid-column: 1/2;
+            grid-row: 1/2;
+            width: auto;
+            height: auto;
+            border-radius: 2rem;
         }
 
-        &::after {
-            content: attr(data-count);
-            color: var(--Cbtn-content);
-            background-color: var(--Cbtn-regular-bg);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 1.5rem;
-            height: 1.5rem;
-            margin-left: auto;
-            border-radius: $card-corner-50;
-        }
-    }
-}
-
-.side.tag-list>.tags-container {
-    display: flex;
-    flex-wrap: wrap;
-    width: 100%;
-    gap: .5rem;
-
-    &>.tag {
-        border-radius: $card-corner-50;
-        display: block;
-        padding-left: .5rem;
-        line-height: 2.5rem;
-        height: 2.5rem;
-        color: var(--Cbtn-content);
-        background: var(--Cbtn-regular-bg);
-        transition: background-color .2s ease-in-out;
-        overflow: hidden;
-
-        &:hover {
-            background-color: var(--Cbtn-regular-bg-hover);
+        &>.userName {
+            grid-column: 2/3;
+            grid-row: 1/2;
         }
 
-        &::after {
-            content: attr(count);
-            display: inline-block;
-            margin-left: .5rem;
-            width: 2.5rem;
-            height: 2.5rem;
-            background-color: var(--Cbg);
-            text-align: center;
-            line-height: 2.5rem;
+        &>.intro {
+            margin: 0;
+            grid-column: 1/3;
+            grid-row: 2/3;
+        }
+
+        &>.socialLinks {
+            margin: 0;
+            grid-column: 1/3;
+            grid-row: 3/4;
         }
     }
 }
+
+$line-height: 1.5rem;
 
 #markdown_TOC {
-    display: none;
+    max-height: 80vh;
+    overflow: auto;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    counter-reset: toc_counter_h2;
+    color: var(--onBackground);
+    line-height: #{$line-height};
+    font-size: 1rem;
+    opacity: 1;
+    transition: $t-opacity, max-height .35s ease-in-out, padding .35s ease-in-out;
 }
 
-@media(min-width: 1024px) {
-    $line-height: 1.35rem;
+#markdown_TOC>* {
+    text-wrap: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    cursor: pointer;
+    display: flex;
+    border-radius: 1rem;
+    transition: $t-background-color, $t-color;
+}
 
-    #markdown_TOC {
-        max-height: 80vh;
-        overflow: auto;
-        list-style: none;
-        display: flex;
-        flex-direction: column;
-        counter-reset: toc_counter_h2;
+#markdown_TOC .li-2 {
+    height: #{$line-height};
+    margin: .25rem 0;
+    padding: .5rem;
+}
+
+#markdown_TOC .li-2::before {
+    counter-increment: toc_counter_h2;
+    content: counter(toc_counter_h2);
+    display: inline-block;
+    width: #{$line-height};
+    height: #{$line-height};
+    line-height: #{$line-height};
+    font-size: .875rem;
+    margin-right: .5rem;
+    border-radius: 100vmax;
+    background-color: var(--surfaceVariant);
+    color: var(--onSurfaceVariant);
+    text-align: center;
+    font-family: "Hack", "monospace", monospace;
+}
+
+@each $level in (3, 4, 5, 6) {
+    #markdown_TOC .li-#{$level} {
         color: var(--Ctext-50);
         line-height: #{$line-height};
-        font-size: .975rem;
-        opacity: 1;
-        transition: opacity .125s ease-in-out, max-height .35s ease-in-out, padding .35s ease-in-out;
-    }
-
-    #markdown_TOC>* {
-        text-wrap: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        cursor: pointer;
-        display: flex;
-        border-radius: $card-corner-50;
-        transition: background-color .125s ease-in-out, color .125s ease-in-out;
-    }
-
-    #markdown_TOC .li-2 {
-        height: #{$line-height};
+        height: 1.5rem;
         margin: .25rem 0;
         padding: .25rem;
+        padding-left: calc(sqrt($level) * .25rem + .25rem);
     }
 
-    #markdown_TOC .li-2::before {
-        counter-increment: toc_counter_h2;
-        content: counter(toc_counter_h2);
+    #markdown_TOC .li-#{$level}::before {
+        content: '';
         display: inline-block;
-        width: #{$line-height};
         height: #{$line-height};
-        line-height: #{$line-height};
-        font-size: .75rem;
-        margin-right: .5rem;
-        border-radius: $card-corner-50;
-        background-color: var(--Cbtn-regular-bg-hover);
-        color: var(--Cbtn-content);
-        text-align: center;
-        font-family: "Hack", "monospace", monospace;
+        width: #{$line-height};
+        box-sizing: border-box;
+        border-radius: $card-corner-circle;
+        background-image: radial-gradient(50% 50%, var(--Cbtn-regular-bg) 30%, transparent 30%);
     }
+}
 
-    @each $level in (3, 4, 5, 6) {
-        #markdown_TOC .li-#{$level} {
-            color: var(--Ctext-50);
-            line-height: #{$line-height};
-            height: 1.5rem;
-            margin: .25rem 0;
-            padding: .25rem;
-            padding-left: calc(sqrt($level) * .25rem + .25rem);
-        }
+#markdown_TOC>*.active {
+    color: var(--Cbrand);
+}
 
-        #markdown_TOC .li-#{$level}::before {
-            content: '';
-            display: inline-block;
-            height: #{$line-height};
-            width: #{$line-height};
-            box-sizing: border-box;
-            border-radius: $card-corner-circle;
-            background-image: radial-gradient(50% 50%, var(--Cbtn-regular-bg) 30%, transparent 30%);
-        }
-    }
-
-    #markdown_TOC>*.active {
-        color: var(--Cbrand);
-    }
-
-    #markdown_TOC>*:hover {
-        background-color: var(--Cbtn-regular-bg);
-    }
+#markdown_TOC>*:hover {
+    background-color: var(--Cbtn-regular-bg);
 }
 
 #markdown_TOC:empty {

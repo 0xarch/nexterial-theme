@@ -1,11 +1,11 @@
 extends global_layout.pug
 
 append head
-    title= 'CATEGORIES'
+    title= __('Categories')
 
 block content
-    h2 CATEGORIES
-    ul
+    h2.archive-label.new!= __('Categories')
+    ul.index-ul.tags.new
         each category in site.categories
             li
                 a(href=url_for('/categories/'+category.key+'/0/'))= category.key

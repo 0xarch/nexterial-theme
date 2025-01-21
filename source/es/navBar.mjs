@@ -69,42 +69,6 @@ function hamburger() {
     });
 }
 
-function palette() {
-    let paletteButton = document.querySelector('#globalHeader .operations .palette');
-    let palettePanel = document.querySelector('#globalHeader .operation-container .palette');
-    __listen(paletteButton, palettePanel, (on) => {
-        palettePanel.classList[on ? 'add' : 'remove']('on');
-    });
-    let numberShower = palettePanel.querySelector('.number-show');
-    let resetter = palettePanel.querySelector('.reset-button');
-    let inputer = palettePanel.querySelector('input.scroller');
-    let docRoot = document.querySelector(':root');
-    if (localStorage.getItem('0xarch.github.io/color-hue')) {
-        let hue = localStorage.getItem('0xarch.github.io/color-hue');
-        numberShower.innerHTML = hue;
-        docRoot.style.setProperty('--config-hue', hue);
-        inputer.value = parseInt(hue);
-    } else {
-        numberShower.innerHTML = 250;
-        inputer.value = 250;
-    };
-    resetter.addEventListener('click', () => {
-        numberShower.innerHTML = '250';
-        localStorage.removeItem('0xarch.github.io/color-hue');
-        docRoot.style.setProperty('--config-hue', 250);
-        inputer.value = 250;
-    })
-    inputer.addEventListener('input', () => {
-        numberShower.innerHTML = inputer.value;
-        docRoot.style.setProperty('--config-hue', inputer.value);
-    });
-    inputer.addEventListener('change', () => {
-        numberShower.innerHTML = inputer.value;
-        localStorage.setItem('0xarch.github.io/color-hue', inputer.value);
-        docRoot.style.setProperty('--config-hue', inputer.value);
-    });
-}
-
 function search() {
     const Button = document.getElementById('headerButtonSearch');
     const Menu = document.getElementById('headerComponentSearch');

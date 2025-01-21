@@ -1,62 +1,5 @@
 @use "./_declaration.scss" as *;
 
-.labeled-card {
-    position: relative;
-    display: block;
-    box-sizing: border-box;
-    max-width: 100%;
-    background-color: var(--surface);
-    transition: background-color .125s ease-in-out, color .125s ease-in-out;
-    border-radius: $card-corner;
-    margin: 0 1rem;
-
-    &:hover {
-        background-color: var(--primaryContainer);
-        color: var(--onPrimaryContainer);
-    }
-
-    &>a {
-        position: relative;
-        display: flex;
-        align-items: center;
-        width: 100%;
-        height: 3.25rem;
-        padding: 1rem;
-        gap: 1rem;
-        box-sizing: border-box;
-        cursor: pointer;
-        text-decoration: none;
-        color: var(--onSurface);
-        transition: color .125s ease-in-out;
-
-        &>date {
-            width: 4rem;
-            text-align: right;
-        }
-
-        &>.title {
-            color: var(--primary);
-            font-weight: 900;
-            font-size: 1.1rem;
-            line-height: 1.5rem;
-            margin-right: auto;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            text-wrap: nowrap;
-        }
-
-        &>.title::before {
-            content: '';
-            display: inline-block;
-            width: 1.75rem;
-            height: 100%;
-            position: relative;
-            box-sizing: border-box;
-            margin-right: 1rem;
-        }
-    }
-}
-
 .post-meta {
     color: var(--onSurface);
     font-weight: 900;
@@ -97,18 +40,13 @@
                 padding: .375rem;
                 margin: 0 .125rem;
                 border-radius: .375rem;
-                color: var(--Ctext-25);
+                color: inherit;
                 background-color: transparent;
-                transition: background-color .25s ease-in-out,
-                    color .25s ease-in-out;
-
-                .post-card &:not(:hover) {
-                    color: var(--Ctext-50);
-                }
+                transition: $t-background-color, $t-color;
 
                 &:hover {
-                    color: var(--Cbrand);
-                    background-color: var(--Cbtn-plain-bg-hover);
+                    color: var(--onPrimary);
+                    background-color: var(--primary);
                 }
 
             }
@@ -118,20 +56,6 @@
                 width: 0;
                 padding: 0 .15rem;
                 position: relative;
-
-                &::before {
-                    content: '/';
-                    position: absolute;
-                    top: 0;
-                    left: 0;
-                    height: 100%;
-                    width: 100%;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    font-weight: 400;
-                }
-
             }
         }
     }
@@ -162,13 +86,11 @@
 .giscus {
     box-sizing: border-box;
     padding: $card-padding;
-    background-color: var(--Cbg);
     border-radius: $card-corner-75;
 }
 
 .postCard {
     display: block;
-    height: 28rem;
     box-sizing: border-box;
     padding: $card-padding;
     overflow: hidden;
@@ -178,6 +100,7 @@
     color: var(--onSurfaceVariant);
     transition: color .125s ease-in-out, border-radius .125s ease-in-out;
     cursor: pointer;
+    aspect-ratio: .875;
 
     &::before {
         content: '';
@@ -185,7 +108,7 @@
         inset: 0;
         background-color: var(--surfaceVariant);
         opacity: .35;
-        transition: background-color .125s ease-in-out, opacity .125s ease-in-out;
+        transition: $t-background-color, $t-opacity;
         z-index: 1;
     }
 

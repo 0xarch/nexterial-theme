@@ -1,11 +1,11 @@
 extends global_layout.pug
 
 append head
-    title= 'TAGS'
+    title= __('Tags')
 
 block content
-    h2 TAGS
-    ul
+    h2.archive-label.new!= __('Tags')
+    ul.index-ul.tags.new
         each tag in site.tags
             li
                 a(href=url_for('/tags/'+tag.key+'/0/'))= tag.key
