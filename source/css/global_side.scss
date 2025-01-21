@@ -192,7 +192,6 @@ $line-height: 1.5rem;
 
 @each $level in (3, 4, 5, 6) {
     #markdown_TOC .li-#{$level} {
-        color: var(--Ctext-50);
         line-height: #{$line-height};
         height: 1.5rem;
         margin: .25rem 0;
@@ -207,16 +206,17 @@ $line-height: 1.5rem;
         width: #{$line-height};
         box-sizing: border-box;
         border-radius: $card-corner-circle;
-        background-image: radial-gradient(50% 50%, var(--Cbtn-regular-bg) 30%, transparent 30%);
+        background-image: radial-gradient(50% 50%, var(--surfaceVariant) 30%, transparent 35%);
     }
 }
 
 #markdown_TOC>*.active {
-    color: var(--Cbrand);
+    color: var(--primary);
 }
 
 #markdown_TOC>*:hover {
-    background-color: var(--Cbtn-regular-bg);
+    background-color: var(--surfaceVariant);
+    color: var(--onSurfaceVariant);
 }
 
 #markdown_TOC:empty {
