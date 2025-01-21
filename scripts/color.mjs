@@ -3,8 +3,8 @@ import { argbFromHex, rgbaFromArgb, themeFromSourceColor } from "@material/mater
 export let theme = themeFromSourceColor(argbFromHex('#3273d2'));
 
 export default function install(ctx) {
-    if (typeof ctx?.config?._custom_color === 'number') {
-        theme = themeFromSourceColor(argbFromHex(ctx.config._custom_color));
+    if (ctx?.config?._custom_color) {
+        theme = themeFromSourceColor(argbFromHex(String(ctx.config._custom_color)));
     }
 }
 

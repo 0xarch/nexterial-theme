@@ -8,7 +8,7 @@
     // flex-direction: column;
     gap: 1rem;
     display: grid;
-    grid-template-columns: repeat(auto-fill,minmax(20rem,1fr));
+    grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
 }
 
 .archive-label+.index-ul:not(.new) {
@@ -73,7 +73,7 @@
     line-height: 1.5rem;
     font-size: 1.5rem;
     color: var(--onSurfaceVariant);
-    transition: $t-background-color, $t-color;
+    transition: $ts-bg-c;
 
     &>a {
         color: inherit;
@@ -97,6 +97,7 @@
 
     &:hover {
         color: var(--onPrimary);
+
         &::before {
             background-color: var(--primary);
             border-radius: 1.5rem;
@@ -271,16 +272,15 @@ blockquote {
         display: flex;
         align-items: center;
         width: calc(100% - $card-gap/2);
-        transition: color .25s ease-in-out, background-color .25s ease-in-out;
+        transition: $ts-bg-c;
+        @include m(PrimaryContainer);
 
         &:hover {
-            color: var(--onPrimary);
-            background-color: var(--primary);
+            @include m(Primary);
         }
 
-        &:not([href]){
-            color: var(--onSurfaceVariant);
-            background-color: var(--surfaceVariant);
+        &:not([href]) {
+            @include m(SurfaceVariant);
         }
 
         &>.title {
@@ -338,15 +338,14 @@ blockquote {
         & a {
             box-sizing: border-box;
             padding: .25rem .5rem;
-            color:inherit;
+            color: inherit;
             border-radius: .75rem;
             background-color: transparent;
-            transition: $t-color, $t-background-color;
+            transition: $ts-bg-c;
             text-decoration: none;
 
             &:hover {
-                background-color: var(--primary);
-                color: var(--onPrimary);
+                @include m(Primary);
             }
         }
     }

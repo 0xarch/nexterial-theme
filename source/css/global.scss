@@ -34,10 +34,9 @@ body {
     position: relative;
     font-family: var(--font-family);
     color-scheme: light dark;
-    background-color: var(--background);
-    color: var(--onBackground);
     margin: 0;
     padding: 0;
+    @include m(Background);
 }
 
 * {
@@ -80,7 +79,7 @@ body:not(.dom-loaded) .loading-circle {
     width: calc($r / 1.15);
     height: calc($r / 1.15);
     border: 1rem solid var(--primaryContainer);
-    border-top: 1rem solid var(--onPrimary);
+    border-top: 1rem solid var(--onPrimaryContainer);
     border-radius: 100vmax;
     animation: loading-circle-spin 2.5s linear infinite;
 }
@@ -176,9 +175,8 @@ symbol path {
             }
 
             &:hover {
-                color: var(--onPrimary);
-                background-color: var(--primary);
                 font-size: 1.5rem;
+                @include m(Primary);
 
                 &>b {
                     opacity: 1;
@@ -208,8 +206,7 @@ symbol path {
             padding: $card-padding;
             border-radius: $card-corner;
             box-shadow: $card-shadow;
-            background-color: var(--surface);
-            color: var(--onSurface);
+            @include m(Surface);
         }
     }
 
@@ -240,18 +237,17 @@ symbol path {
             height: fit-content;
             opacity: 0;
             pointer-events: none;
-            transition: top .125s ease-in-out, opacity .125s ease-in-out;
+            transition: $t-top, $t-opacity;
             z-index: 100;
             border-radius: $card-corner;
-            background-color: var(--surface);
-            color: var(--onSurface);
             display: flex;
             flex-direction: column;
             gap: .5rem;
             padding: 1rem;
+            @include m(Surface);
 
             & a {
-                color: var(--onSurface);
+                color: inherit;
                 min-width: min(8rem, 50vw);
                 padding: .25rem;
                 height: 4.5rem;
@@ -298,9 +294,7 @@ symbol path {
 #headerButtonSearch,
 #headerButtonToggle {
     font-size: 1.5rem;
-    background-color: var(--primaryContainer);
-    color: var(--onPrimaryContainer);
-    transition: $t-background-color, $t-color;
+    transition: $ts-bg-c;
     border-radius: 100vmax;
     width: 3rem;
     height: 3rem;
@@ -309,10 +303,10 @@ symbol path {
     align-items: center;
     justify-content: center;
     position: relative;
+    @include m(PrimaryContainer);
 
     &:hover {
-        background-color: var(--primary);
-        color: var(--onPrimary);
+        @include m(Primary);
     }
 }
 
@@ -344,8 +338,6 @@ symbol path {
 
         &>input {
             box-shadow: $card-shadow;
-            background-color: var(--surfaceVariant);
-            color: var(--onSurfaceVariant);
             border-radius: 100vmax;
             display: inline-block;
             padding: .5rem;
@@ -355,6 +347,7 @@ symbol path {
             height: 3rem;
             width: 100%;
             outline: none;
+            @include m(SurfaceVariant);
 
             &:focus {
                 border: 1px solid var(--outline);
@@ -363,8 +356,6 @@ symbol path {
 
         &>button {
             box-shadow: $card-shadow;
-            background-color: var(--surfaceVariant);
-            color: var(--onSurfaceVariant);
             border-radius: $card-corner-75;
             border: none;
             padding: .5rem;
@@ -372,16 +363,15 @@ symbol path {
             box-sizing: border-box;
             display: inline-block;
             transition: $t-background-color, $t-color;
+            @include m(SurfaceVariant);
 
             &:hover {
-                background-color: var(--onPrimary);
-                color: var(--primary);
+                @include m(Primary);
             }
         }
 
         &>.search {
-            background-color: var(--primary);
-            color: var(--onPrimary);
+            @include m(Primary);
         }
     }
 
@@ -399,13 +389,11 @@ symbol path {
             box-sizing: border-box;
             padding: calc($card-padding / 4) $card-padding;
             border-radius: 100vmax;
-            color: var(--onSurface);
-            background-color: var(--surface);
-            transition: $t-background-color, $t-color;
+            transition: $ts-bg-c;
+            @include m(Surface);
 
             &:hover {
-                background-color: var(--onPrimary);
-                color: var(--primary);
+                @include m(Primary);
             }
 
             &>b {

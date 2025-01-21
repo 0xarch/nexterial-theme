@@ -175,7 +175,7 @@
         font-weight: 900;
         font-size: 1.1rem;
         line-height: 3rem;
-        transition: $t-background-color, $t-color;
+        transition: $ts-bg-c;
 
         &.prev {
             transform: rotate(180deg);

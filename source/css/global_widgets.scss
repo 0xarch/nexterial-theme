@@ -42,7 +42,7 @@
                 border-radius: .375rem;
                 color: inherit;
                 background-color: transparent;
-                transition: $t-background-color, $t-color;
+                transition: $ts-bg-c;
 
                 &:hover {
                     color: var(--onPrimary);
@@ -98,7 +98,7 @@
     text-decoration: none;
     border-radius: $card-corner;
     color: var(--onSurfaceVariant);
-    transition: color .125s ease-in-out, border-radius .125s ease-in-out;
+    transition: $t-color, $t-border-radius;
     cursor: pointer;
     aspect-ratio: .875;
 

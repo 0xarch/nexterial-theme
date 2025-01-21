@@ -1,6 +1,16 @@
+@use "sass:string";
+
+@function capitalize($string) {
+    @return string.to-upper-case(string.slice($string, 1, 1))+string.slice($string, 2);
+}
+
+@function decapitalize($string) {
+    @return string.to-lower-case(string.slice($string, 1, 1))+string.slice($string, 2);
+}
+
 $card-gap: 1rem;
 $card-shadow: 0 4px 10px rgba(0, 0, 0, .05),
-0 0 1px rgba(0, 0, 0, .1);
+    0 0 1px rgba(0, 0, 0, .1);
 $card-padding: 1rem;
 $card-corner: 1rem;
 $card-corner-25: calc($card-corner * .25);
@@ -16,5 +26,21 @@ $t-border-radius: border-radius .125s ease-in-out;
 $t-color: color .125s ease-in-out;
 $t-opacity: opacity .125s ease-in-out;
 $t-padding: padding .125s ease-in-out;
+$t-margin: margin .125s ease-in-out;
+$t-height: height .125s ease-in-out;
+$t-width: width .125s ease-in-out;
+$t-max-height: max-height .125s ease-in-out;
+$t-max-width: max-width .125s ease-in-out;
+$t-max-height: max-height .125s ease-in-out;
+$t-max-width: max-width .125s ease-in-out;
 $t-top: top .125s ease-in-out;
 $t-bottom: bottom .125s ease-in-out;
+$t-border: border .125s ease-in-out;
+
+$ts-bg-c: #{$t-background-color, $t-color};
+$ts-h-w: #{$t-height, $t-width};
+
+@mixin m($color: primary) {
+    background-color: var(--#{decapitalize($color)});
+    color: var(--on#{capitalize($color)});
+}
