@@ -20,17 +20,17 @@ export default function (ctx) {
             if (!regExps.MATCH_WEB_URL.test(v)) {
                 let originPath = join(dirname(post.full_source), v);
                 let targetPath = join(dirname(post.path), v);
-                // let fallbackTargetPath = join(post.path, v);
+                let fallbackTargetPath = join(post.path, v);
                 cp(originPath, targetPath, (err) => {
                     if (err) {
                         console.error(err);
                     }
                 });
-                // cp(originPath, fallbackTargetPath, (err) => {
-                //     if (err) {
-                //         console.error(err);
-                //     }
-                // });
+                cp(originPath, fallbackTargetPath, (err) => {
+                    if (err) {
+                        console.error(err);
+                    }
+                });
             }
         });
     });

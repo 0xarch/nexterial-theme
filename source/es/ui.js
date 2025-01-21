@@ -93,6 +93,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     setTimeout(scrollToTop, 0);
     doPageWork();
     onResize();
+    if(document.querySelector('meta[data-nosplash="1"]') && window.location.href.endsWith('/')){
+        history.replaceState('','', window.location.href.slice(0,window.location.href.length-1));
+    }
 })
 
 let tickingResize = false;
