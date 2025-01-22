@@ -14,12 +14,6 @@
     }
 }
 
-body.loaded::before {
-    opacity: 1;
-    transform: none;
-    top: 0;
-}
-
 html::-webkit-scrollbar {
     display: none
 }
@@ -64,12 +58,9 @@ body {
     transition-delay: .125s;
 }
 
-body:not(.dom-loaded) .loading-circle {
-    animation: loading-circle-start .25s ease-in-out 1;
-}
-
-:is(body.being-replaced) .loading-circle {
+body:not(.anim-ready) .loading-circle {
     opacity: 1;
+    animation: loading-circle-start .25s ease-in-out 1;
 }
 
 .loading-circle::before {

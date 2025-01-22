@@ -87,9 +87,9 @@ document.addEventListener('pjax:complete', async (e) => {
 window.centerPjax = centerPjax;
 
 document.addEventListener('DOMContentLoaded', async () => {
+    document.body.classList.add('anim-ready');
     navBarInit();
     await mountWidgets();
-    document.body.classList.add('dom-loaded');
     setTimeout(scrollToTop, 0);
     doPageWork();
     onResize();
