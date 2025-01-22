@@ -1,5 +1,3 @@
-import { argbFromHex, hexFromArgb, themeFromSourceColor } from "@material/material-color-utilities";
-
 function randomParams(count, n1 = 1, n2 = 2, n3 = 3, n4 = 4, n5 = 5) {
     let result = [];
     for (let i = 0; i < count; i++) {
@@ -27,17 +25,7 @@ export default function generatePostImage(ctx) {
             let month = v.date.month();
             let day = v.date.day();
 
-            let sourceColor = '#' + ((charCount * year ^ contentCharCount + Math.pow(month, day)) % 16777215).toString(16).padStart(6, '0');
-            let theme = themeFromSourceColor(argbFromHex(sourceColor));
-
-            let lightPrimary = hexFromArgb(theme.schemes.light.secondaryContainer);
-            let darkPrimary = hexFromArgb(theme.schemes.dark.secondaryContainer);
-            let lightPrimaryContainer = hexFromArgb(theme.schemes.light.primaryContainer);
-            let darkPrimaryContainer = hexFromArgb(theme.schemes.dark.primaryContainer);
-            let lightOnPrimary = hexFromArgb(theme.schemes.light.onPrimaryContainer);
-            let darkOnPrimary = hexFromArgb(theme.schemes.dark.onPrimaryContainer);
-
-            generated += `<svg viewBox="0 0 332 240" style="--lp:${lightPrimary};--dp:${darkPrimary};--lc:${lightPrimaryContainer};--dc:${darkPrimaryContainer};--lo:${lightOnPrimary};--do:${darkOnPrimary}">`;
+            generated += `<svg viewBox="0 0 332 240">`;
 
             let dotCount = 2;
             let dotPositions = randomParams(dotCount, charCount, contentCharCount, year, month, day);
