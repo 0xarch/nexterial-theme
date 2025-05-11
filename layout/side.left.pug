@@ -3,7 +3,9 @@
         img.avatar(loading='lazy',src=ctx.config.avatar)
     h2.userName
         a(href=ctx.config.url)= ctx.config.author
-    .intro= (ctx.config.data && (ctx.config.data.intro || ctx.config.data.announcement)) || 'The stupid one'
+    .intro
+        pre
+            =ctx.config.note || (ctx.config.data && (ctx.config.data.intro || ctx.config.data.announcement)) || 'The stupid one'
     .socialLinks
         each val,key in ctx.config.social_links || {}
             a.link(href=val.url,title=key)!=get_fa_brand(val.icon)

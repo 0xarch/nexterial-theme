@@ -16,6 +16,12 @@ export default function (ctx) {
                 post.properties.image = join(ctx.config.root, dirname(post.relative_path), post.properties.image);
             }
         }
+        if(typeof post.properties.backgroundImage === 'string'){
+            if(!regExps.MATCH_WEB_URL.test(post.properties.backgroundImage)){
+                referencedImages.push(post.properties.backgroundImage);
+                post.properties.backgroundImage = join(ctx.config.root, dirname(post.relative_path), post.properties.backgroundImage);
+            }
+        }
         referencedImages.forEach(v => {
             if (!regExps.MATCH_WEB_URL.test(v)) {
                 let originPath = join(dirname(post.full_source), v);

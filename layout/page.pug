@@ -4,6 +4,7 @@ append head
     title= ctx.config.title
 
 block content
+    img.imageBackground(src=ctx.config.indexBg)
     ul.index-ul
         each post in site.posts.slice(page.current*10,page.current*10+10)
             li

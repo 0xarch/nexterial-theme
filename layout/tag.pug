@@ -8,4 +8,4 @@ block content
     ul.index-ul.tags.new
         each tag in site.tags
             li
-                a(href=url_for('/tags/'+tag.key+'/0/'))= tag.key
+                a.--smooth(href=url_for('/tags/'+tag.key+'/0/'))= tag.key

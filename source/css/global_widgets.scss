@@ -8,6 +8,21 @@
     text-wrap: nowrap;
     position: relative;
 
+    box-sizing: border-box;
+    padding: 1rem;
+    border-radius: $card-corner;
+    backdrop-filter: blur(20px);
+
+    &::before {
+        content: '';
+        position: absolute;
+        display: block;
+        inset: 0;
+        background-color: var(--surface);
+        z-index: -1;
+        opacity: .65;
+    }
+
     & a {
         text-decoration: none;
     }
@@ -101,13 +116,15 @@
     transition: $t-color, $t-border-radius;
     cursor: pointer;
     aspect-ratio: .875;
+    backdrop-filter: blur(25px);
+    border: .05rem solid var(--outline);
 
     &::before {
         content: '';
         position: absolute;
         inset: 0;
         background-color: var(--surfaceVariant);
-        opacity: .35;
+        opacity: .75;
         transition: $t-background-color, $t-opacity;
         z-index: 1;
     }
@@ -185,7 +202,7 @@
 
         &::before {
             background-color: var(--primaryContainer);
-            opacity: .75;
+            opacity: 1;
         }
     }
 }

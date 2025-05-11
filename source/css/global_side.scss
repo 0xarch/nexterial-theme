@@ -4,6 +4,25 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    box-sizing: border-box;
+    padding: 1.5rem;
+    overflow: hidden;
+
+    body:has(.imageBackground) & {
+        border-radius: $card-corner;
+        backdrop-filter: blur(20px);
+        border: .05rem solid var(--outline);
+    
+        &::before {
+            content: '';
+            position: absolute;
+            display: block;
+            inset: 0;
+            background-color: var(--surface);
+            z-index: -1;
+            opacity: .65;
+        }
+    }
 
     & a {
         text-decoration: none;
@@ -55,6 +74,15 @@
         border-radius: 1rem;
         padding: .5rem;
         text-align: center;
+        max-width: 15.5rem;
+        line-height: 1.6rem;
+        box-sizing: border-box;
+        background-color: var(--surfaceVariant);
+        color: var(--onSurfaceVariant);
+
+        & pre {
+            padding: 0;
+        }
     }
 }
 
@@ -174,6 +202,22 @@ $line-height: 1.5rem;
     font-size: 1rem;
     opacity: 1;
     transition: $t-opacity, max-height .35s ease-in-out, padding .35s ease-in-out;
+
+    box-sizing: border-box;
+    padding: 1rem;
+    border-radius: $card-corner;
+    backdrop-filter: blur(30px);
+
+    &::before {
+        content: '';
+        position: absolute;
+        display: block;
+        inset: 0;
+        background-color: var(--surface);
+        border-radius: $card-corner;
+        z-index: -1;
+        opacity: .65;
+    }
 }
 
 #markdown_TOC>* {

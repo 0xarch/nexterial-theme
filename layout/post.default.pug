@@ -5,6 +5,8 @@ append head
     title #{page.title} - #{ctx.config.title}
 
 block content
+    if page.properties.backgroundImage
+        img.imageBackground(src=page.properties.backgroundImage)
     .postMain
         +post-meta(page,true)
         if page.properties.image && !page.properties.__is_generated_image
