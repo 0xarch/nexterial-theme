@@ -1,22 +1,18 @@
-# NEXT Theme
+# NEXTerial Theme
 _A theme designed for Fewu 3.0_.
+
+This theme is mainly inspired by Material blog, the official blog of Material design.
+
+Compatible with Fewu 3.4.8 (Tested).
+
+Uses Pjax to better the experience.
 
 ## Requirements
 
 * (npm) @fortawesome/free-brands-svg-icons
 * (npm) @material-symbols/svg-400
+* (npm) @material/material-color-utilities
 
 ```sh
-npm i -S @fortawesome/free-brands-svg-icons @material-symbols/svg-400
-```
-
-Or copy this `package.json` to working directory (where you put `config.yaml`).
-
-```json
-{
-  "dependencies": {
-    "@fortawesome/free-brands-svg-icons": "^6.7.2",
-    "@material-symbols/svg-400": "^0.27.2"
-  }
-}
+npm i -S @fortawesome/free-brands-svg-icons @material-symbols/svg-400 @material/material-color-utilities
 ```
