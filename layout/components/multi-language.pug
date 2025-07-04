@@ -1,0 +1,9 @@
+mixin multi-language(page)
+    if page.properties.multi_language
+        .multi-language.banner
+            .img!= _icon('material-symbols:language','rounded')
+            p.ml-tip!= __('This article is also available in:')
+            .availables
+                each v,k in page.properties.multi_language
+                    if k != page.language
+                        a.--smooth(href=v)!= ltl(k)

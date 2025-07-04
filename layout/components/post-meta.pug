@@ -1,0 +1,30 @@
+mixin post-meta(post,include_time=false, include_title=false, wide=false)
+    .post-meta
+        if include_title
+            h1.meta-title= post.title
+        if include_time
+            s-chip(type="outlined")
+                s-icon(slot="start")
+                    != _icon('material-symbols:notes','rounded')
+                span #{post.length} #{__('words')}
+            s-chip(type="outlined")
+                - let evlTime = Math.ceil(post.length/250)
+                s-icon(slot="start")
+                    != _icon('material-symbols:schedule','rounded')
+                span #{evlTime} #{__(evlTime==1?'Minute':'Minutes')}
+        s-chip(type="outlined")
+            s-icon(slot="start")
+                != _icon('material-symbols:calendar_today','rounded')
+            != post.date.format('YYYY-MM-DD')
+        if include_time
+            br
+        each val in post.categories
+            s-chip.__(href=url_for('/categories/'+val+'/0/index.html'),clickable="true")
+                s-icon(slot="start")
+                    != _icon('material-symbols:book_2','rounded')
+                != val
+        each val in post.tags
+            s-chip.__(href=url_for('/tags/'+val+'/0/index.html'),clickable="true")
+                s-icon(slot="start")
+                    != _icon('material-symbols:tag','rounded')
+                != val

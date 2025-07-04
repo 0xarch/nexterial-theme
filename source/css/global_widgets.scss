@@ -1,0 +1,67 @@
+@use "./_declaration.scss" as *;
+
+@use "./common_widgets/labeled-card" as labeled-card;
+@use "./common_widgets/post-meta" as post-meta;
+
+@include labeled-card.use;
+@include post-meta.use;
+
+.index-ul {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+}
+
+.index-ul+s-divider {
+    margin: 1rem;
+}
+
+s-card.pc {
+    &>a[slot="headline"]{
+        display: block;
+        text-decoration: none;
+        color: var(--s-color-primary);
+    }
+}
+
+.page-navigator {
+    margin: 0 auto;
+    width: fit-content;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+
+    & s-icon-button {
+        &.prev svg {
+            transform: rotate(180deg);
+        }
+    }
+}
+
+.banner {
+    display: flex;
+    align-items: center;
+    color: var(--Ctext-75);
+    background-color: var(--Cbtn-regular-bg);
+    margin: 1rem var(--banner-vertical-align, -1rem);
+    padding: 1rem calc(-1 * var(--banner-vertical-align, -1rem));
+    box-sizing: border-box;
+
+    &:first-child {
+        margin: -1rem -1rem 1rem;
+    }
+
+    &:last-child {
+        margin: 1rem -1rem -1rem;
+    }
+}
+
+.giscus {
+    box-sizing: border-box;
+    padding: $card-padding;
+    background-color: var(--Cbg);
+    border-radius: $card-corner-75;
+}

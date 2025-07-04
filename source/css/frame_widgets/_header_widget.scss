@@ -1,0 +1,205 @@
+@use "../declaration" as *;
+@use "./header_components" as header-components;
+
+@mixin use() {
+    header.global {
+        --Height: 4.5rem;
+        color-scheme: light dark;
+        min-height: var(--Height);
+        position: sticky;
+        top: 0px;
+        z-index: 1100;
+        box-sizing: border-box;
+        width: var(--Wpage-width);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin: 0 auto;
+        padding: 0 1rem;
+        border-radius: 0 0 $card-corner $card-corner;
+        box-shadow: $card-shadow;
+        background-color: var(--Ccard-bg);
+        @include transition([width height top color background-color]);
+
+        & a {
+            text-decoration: none;
+        }
+
+        & svg {
+            display: block;
+        }
+
+        body:not(.dom-loaded) &.anim {
+            animation-name: navigationbar-fin;
+            animation-duration: .25s;
+        }
+
+        body.focus & {
+            top: calc(-.5rem - var(--Height));
+        }
+
+        &>.kLogo,
+        &>.links a,
+        &>.operations>* {
+            width: fit-content;
+            display: flex;
+            align-items: center;
+            padding: 0 1rem;
+            font-weight: 700;
+            color: var(--Cbrand);
+            position: relative;
+            height: 2.75rem;
+            transition: color .125s ease-in-out;
+
+            &::before {
+                content: '';
+                position: absolute;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                display: block;
+                background-color: var(--Cbtn-plain-bg-hover);
+                transform: scale(0);
+                opacity: 0;
+                transition: transform .125s ease-in-out, opacity .125s ease-in-out;
+                z-index: -1;
+                border-radius: $card-corner-50;
+            }
+
+            &:hover::before {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        &>.kLogo {
+            &>.home-icon {
+                font-size: 1.75rem;
+                margin-right: .5rem;
+                padding-bottom: .25rem;
+
+                &>svg {
+                    display: block;
+                }
+            }
+        }
+
+        &>.links {
+            gap: .125rem;
+            display: flex;
+
+            & a {
+                color: var(--Ctext-100);
+
+                &:hover {
+                    color: var(--Cbrand);
+                }
+            }
+        }
+
+        &>.operations {
+            display: flex;
+            gap: .125rem;
+
+            &>* {
+                width: 2.75rem;
+                display: flex;
+                padding: 0;
+                align-items: center;
+                justify-content: center;
+
+                &:not(:hover) {
+                    color: var(--Ctext-75);
+                }
+
+                &>svg {
+                    font-size: 1.45rem;
+                }
+            }
+        }
+
+        & .toggle {
+            display: none;
+        }
+
+        &>.toggle {
+            padding: 0px;
+            height: var(--Height);
+            width: var(--Height);
+            margin-left: auto;
+            display: none;
+            border: none;
+            color: var(--Cdisplay);
+        }
+
+        &>.operation-container {
+            position: absolute;
+            height: 100%;
+            top: calc(100% + 1rem);
+            right: 1rem;
+
+            &>* {
+                border-radius: $card-corner-75;
+                background-color: var(--Cbg);
+                padding: .5rem;
+            }
+        }
+
+        body.focus & {
+            &>.operation-container {
+                top: -100%;
+            }
+        }
+    }
+
+
+    @media(max-width: 768px) {
+        header.global {
+            & .toggle {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            &>.links {
+                position: absolute;
+                right: 1rem;
+                top: 90%;
+                height: 0%;
+                padding: .5rem;
+                gap: .25rem;
+                background-color: var(--Ccard-bg);
+                border-radius: $card-corner-75;
+                flex-direction: column;
+                opacity: 0;
+                pointer-events: none;
+                transition-property: height, top, opacity;
+                transition-duration: .125s;
+                transition-timing-function: ease-in-out;
+                z-index: 100;
+
+                &>a {
+                    color: var(--Ctext-50);
+
+                    &:hover {
+                        color: var(--Cbtn-content);
+                    }
+                }
+            }
+
+            &.collapsed>.links {
+                height: 100%;
+                top: calc(100% + 1rem);
+                opacity: 1;
+                pointer-events: initial;
+            }
+
+            body.being-replaced &>.links {
+                height: 0;
+                opacity: 0;
+            }
+        }
+    }
+
+    @include header-components.use;
+}

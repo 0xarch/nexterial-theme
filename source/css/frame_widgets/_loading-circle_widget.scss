@@ -1,0 +1,25 @@
+@use "../declaration" as *;
+
+@mixin use() {
+    .loading-circle {
+        $r: 3rem;
+        position: fixed;
+        width: calc($r * 2);
+        height: calc($r * 2);
+        left: calc(50% - $r);
+        top: calc(50% - $r);
+        border-radius: 100vmax;
+        z-index: 2000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity .25s ease-in-out;
+        transition-delay: .125s;
+    }
+
+    :is(body.being-replaced) .loading-circle {
+        opacity: 1;
+    }
+}

@@ -1,0 +1,13 @@
+extends global_layout.pug
+
+append head
+    meta(name="description",content=`Posts with category ${_container_of('categories',page.current).key} are listed here.`)
+    title #{__('Categories')} - #{ctx.config.title}
+
+block content
+    .NeoWidget
+        h2= __('Categories')
+        ul
+            each category in site.categories
+                li
+                    a(href=url_for('/categories/'+category.key+'/0/'))= category.key

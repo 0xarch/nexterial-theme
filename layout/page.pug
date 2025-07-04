@@ -1,0 +1,13 @@
+extends global_layout.pug
+
+append head
+    meta(name="description",content=ctx.config.description || ctx.config.note + "\n Page "+page.current)
+    title= ctx.config.title
+
+block content
+    ul.index-ul
+        each post in site.posts.slice(page.current*10,page.current*10+10)
+            li
+                +post-card(post)
+    s-divider
+    +page-navigator(page.total,page.current,'page')

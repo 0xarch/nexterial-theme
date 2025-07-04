@@ -1,0 +1,96 @@
+@use "../declaration" as *;
+
+@mixin use() {
+
+
+    #markdown_TOC {
+        display: none;
+    }
+
+    @media(min-width: 1024px) {
+        $line-height: 1.35rem;
+
+        #markdown_TOC {
+            position: fixed;
+            list-style: none;
+            top: 5rem;
+            right: calc($card-gap * 1.5);
+            width: calc((100vw - var(--Wpage-width))/2 - 2 * $card-gap);
+            display: flex;
+            flex-direction: column;
+            counter-reset: toc_counter_h2;
+            color: var(--Ctext-50);
+            line-height: #{$line-height};
+            font-size: .975rem;
+            opacity: 1;
+            transition: opacity .125s ease-in-out;
+        }
+
+        #markdown_TOC.hide {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        #markdown_TOC>* {
+            cursor: pointer;
+            border-radius: $card-corner-50;
+            display: block;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            text-wrap: nowrap;
+            @include transition([background-color color]);
+        }
+
+        #markdown_TOC .li-2 {
+            height: #{$line-height};
+            margin: .25rem 0;
+            padding: .25rem;
+        }
+
+        #markdown_TOC .li-2::before {
+            counter-increment: toc_counter_h2;
+            content: counter(toc_counter_h2);
+            display: inline-block;
+            width: #{$line-height};
+            height: #{$line-height};
+            line-height: #{$line-height};
+            font-size: .75rem;
+            margin-right: .5rem;
+            border-radius: $card-corner-50;
+            background-color: var(--Cbtn-regular-bg-hover);
+            color: var(--Cbtn-content);
+            text-align: center;
+            font-family: "Hack", "monospace", monospace;
+            vertical-align: top;
+        }
+
+        @each $level in (3, 4, 5, 6) {
+            #markdown_TOC .li-#{$level} {
+                color: var(--Ctext-50);
+                line-height: #{$line-height};
+                height: 1.5rem;
+                margin: .25rem 0;
+                padding: .25rem;
+                padding-left: calc(sqrt($level) * .25rem + .25rem);
+            }
+
+            #markdown_TOC .li-#{$level}::before {
+                content: '';
+                display: inline-block;
+                height: #{$line-height};
+                width: #{$line-height};
+                box-sizing: border-box;
+                border-radius: $card-corner-circle;
+                background-image: radial-gradient(50% 50%, var(--Cbtn-regular-bg) 30%, transparent 30%);
+            }
+        }
+
+        #markdown_TOC>*.active {
+            color: var(--Cbrand);
+        }
+
+        #markdown_TOC>*:hover {
+            background-color: var(--Cbtn-regular-bg);
+        }
+    }
+}

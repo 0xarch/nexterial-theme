@@ -1,0 +1,65 @@
+@use "sass:meta";
+@use "sass:list";
+
+$card-gap: 1rem;
+$card-shadow: 0 4px 10px rgba(0, 0, 0, .05),
+    0 0 1px rgba(0, 0, 0, .1);
+$card-padding: 1rem;
+$card-corner: 1rem;
+$card-corner-25: calc($card-corner * .25);
+$card-corner-50: calc($card-corner * .5);
+$card-corner-75: calc($card-corner * .75);
+$card-corner-100: $card-corner;
+$card-corner-circle: 100vmax;
+$banner-vertical-align: $card-gap * -1;
+
+@mixin noLinkUnderline($param: "children") {
+    @if $param =="self" {
+        &:is(a) {
+            text-decoration: none;
+        }
+    }
+
+    @else {
+        @if $param =="with-self" {
+            &:is(a) {
+                text-decoration: none;
+            }
+
+            & a {
+                text-decoration: none;
+            }
+        }
+
+        @else {
+            & a {
+                text-decoration: none;
+            }
+        }
+    }
+}
+
+@mixin transition($transition-properties, $transition-time: .2s, $transition-function: ease-in-out) {
+    @if meta.type-of($transition-properties)=='list' {
+        @if list.length($transition-properties) < 4 {
+            $transitions: (
+            );
+
+        @each $property in $transition-properties {
+            $transitions: list.append($transitions, #{$property} #{$transition-time} #{$transition-function}, comma);
+        }
+
+        transition: $transitions;
+        }
+
+        @else {
+            transition-property: $transition-properties;
+            transition-duration: $transition-time;
+            transition-timing-function: $transition-function;
+        }
+    }
+
+    @else {
+        transition: $transition-properties $transition-time $transition-function;
+    }
+}

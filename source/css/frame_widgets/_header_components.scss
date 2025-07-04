@@ -1,0 +1,175 @@
+@use "../declaration" as *;
+
+@mixin use() {
+
+    #headerComponentPalette,
+    #headerComponentSearch {
+        transition: opacity .125s ease-in-out, top .125s ease-in-out;
+        position: absolute;
+        top: 0rem;
+        right: 0rem;
+        opacity: 1;
+        box-sizing: border-box;
+        box-shadow: $card-shadow;
+
+        &:not(.on) {
+            top: -1rem;
+            pointer-events: none;
+            opacity: 0;
+        }
+    }
+
+    #headerComponentPalette {
+        min-width: 10rem;
+
+        &>.line {
+            display: flex;
+            height: 2rem;
+            padding: .25rem;
+            box-sizing: border-box;
+
+            &>* {
+                width: 2rem;
+                height: 2rem;
+                padding: .25rem;
+                box-sizing: border-box;
+                background-color: var(--Cbtn-regular-bg);
+                color: var(--Cbtn-content);
+                border-radius: $card-corner-50;
+                text-align: center;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+                &.reset-button:hover {
+                    background-color: var(--Cbtn-regular-bg-hover);
+                }
+
+                &.number-show {
+                    margin-left: auto;
+                    width: 4rem;
+                }
+            }
+        }
+
+        &>.scroll {
+            padding: .25rem;
+            box-sizing: border-box;
+            margin-top: .5rem;
+
+            &>.scroller {
+                display: block;
+                height: 1.5rem;
+                width: 100%;
+                border-radius: $card-corner-25;
+                appearance: none;
+                background: var(--color-selection-bar);
+                margin: 0;
+
+                &::-webkit-slider-thumb {
+                    height: 1.25rem;
+                    width: .75rem;
+                    border-radius: $card-corner-25;
+                }
+            }
+        }
+    }
+
+    #headerComponentSearch {
+        width: min(27rem, calc(100vw - 2rem));
+
+        &>.queryContainer {
+            padding: .25rem;
+            display: flex;
+            align-items: center;
+            margin: 0 auto;
+            width: 100%;
+            gap: .5rem;
+            box-sizing: border-box;
+
+            &>input {
+                border-radius: $card-corner-50;
+                display: inline-block;
+                padding: .5rem 1rem;
+                box-sizing: border-box;
+                border: .05rem solid transparent;
+                font-size: 1.35rem;
+                height: 2.5rem;
+                width: 100%;
+                outline: none;
+                background-color: var(--Cbtn-regular-bg);
+                color: var(--Cbtn-content);
+
+                &:focus {
+                    border: .05rem solid var(--outline);
+                }
+            }
+
+            &>button {
+                border-radius: $card-corner-75;
+                border: none;
+                padding: .5rem;
+                font-size: 1.5rem;
+                box-sizing: border-box;
+                display: inline-block;
+                background-color: var(--Cbtn-regular-bg);
+                color: var(--Cbtn-content);
+
+                &:hover {
+                    background-color: var(--Cbtn-regular-bg-hover);
+                }
+            }
+
+            &>.search {
+                background-color: var(--Cbtn-regular-bg);
+                color: var(--Cbtn-content);
+            }
+        }
+
+        &>.resultContainer {
+            &:not(:empty) {
+                padding-top: .45rem;
+                margin-top: .3rem;
+                border-top: .05rem dashed var(--Ctext-25);
+            }
+
+            max-height: 65vh;
+            overflow: auto;
+
+            &>a {
+                display: block;
+                width: 100%;
+                box-sizing: border-box;
+                padding: calc($card-padding / 4) $card-padding;
+                border-radius: $card-corner-50;
+                background-color: transparent;
+                color: var(--Cbtn-content);
+                transition: background .125s ease-in-out;
+
+                &:hover {
+                    background-color: var(--Cbtn-regular-bg);
+                }
+
+                &>b {
+                    display: block;
+                    font-size: 1.5rem;
+                }
+
+                &>span {
+                    margin-inline: .5rem;
+                }
+
+                &>b,
+                &>span {
+                    text-overflow: ellipsis;
+                    overflow: hidden;
+                    text-wrap: nowrap;
+                }
+
+                &:not(:last-child) {
+                    margin-bottom: $card-gap;
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,30 @@
+@use "../declaration" as *;
+
+@mixin use() {
+    .sw.user-intro {
+        width: 100%;
+        padding: 16px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
+        box-sizing: border-box;
+
+        &>s-avatar {
+            width: 64px;
+        }
+        &>.name {
+            text-decoration: none;
+            font-size: 20px;
+            font-weight: bold;
+            color: var(--s-color-primary);
+        }
+        &>.note {
+            color: var(--s-color-on-surface-variant);
+        }
+        &>.row svg {
+            width: 1rem;
+            height: 1rem;
+        }
+    }
+}

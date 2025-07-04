@@ -1,0 +1,25 @@
+mixin post-card(item)
+    //- mdui-card.pd.pc
+    //-     header
+    //-         a.__(href=url_for(item.relative_path))
+    //-             if item.properties.image
+    //-                 img(src=item.properties.image)
+    //-             h2= item.title
+    //-         .pm
+    //-             +post-meta(item)
+    //-     section
+    //-         != item.excerpt
+    //-     .read
+    //-         mdui-button.__(href=url_for(item.relative_path))
+    //-             != __('Read more')
+    s-card.pc
+        if item.properties.image
+            img.__(slot="image",href=url_for(item.relative_path),src=item.properties.image)
+        a.__(slot="headline",href=url_for(item.relative_path))
+            h2= item.title
+        .pm(slot="subhead")
+            +post-meta(item)
+        section(slot="text")
+            != item.excerpt
+        s-button.__(slot="action",href=url_for(item.relative_path))
+            != __('Read more')

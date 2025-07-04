@@ -1,0 +1,16 @@
+extends global_layout.pug
+
+append head
+    meta(name="description",content=ctx.config.description || ctx.config.note)
+    if ctx.config.keywords && Array.isArray(ctx.config.keywords)
+        meta(name="keywords",content=ctx.config.keywords.join(','))
+    title #{ctx.config.title}#{ctx.config.additional_title ? ' - ' + ctx.config.additional_title : ''}
+
+block content
+    h1(hidden=true)= ctx.config.title
+    ul.index-ul
+        each post in site.posts.slice(page.current*10,page.current*10+10)
+            li
+                +post-card(post)
+    s-divider
+    +page-navigator(Math.ceil(site.posts.length/10),page.current,'page')

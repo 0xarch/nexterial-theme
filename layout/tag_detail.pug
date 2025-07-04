@@ -1,0 +1,16 @@
+extends global_layout.pug
+
+append head
+    meta(name="description",content=`Posts with tag ${_container_of('tags',page.current).key} are listed here.`)
+    title #{_container_of('tags',page.current).key} - #{__('Tags')} - #{ctx.config.title}
+
+block content
+    - let current_container = _container_of('tags',page.current)
+    h2.archive-label #{current_container.key}
+    s-divider._
+    ul.index-ul
+        each post in current_container.values
+            li
+                +post-card(post)
+    s-divider._
+    +page-navigator(current_container.total,current_container.current,`/tags/${current_container.key}`)

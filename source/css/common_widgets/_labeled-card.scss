@@ -1,0 +1,69 @@
+@use "../declaration" as *;
+
+@mixin use() {
+    .labeled-card {
+        position: relative;
+        display: block;
+        box-sizing: border-box;
+        max-width: 100%;
+        background-color: #0000;
+        transition: background-color .25s ease-in-out;
+        border-radius: $card-corner-75;
+        margin: 0 1rem;
+
+        &:hover {
+            background-color: var(--Cbtn-plain-bg-hover);
+        }
+
+        &>a {
+            position: relative;
+            display: flex;
+            align-items: center;
+            width: 100%;
+            height: 3.25rem;
+            padding: 1rem;
+            gap: 1rem;
+            box-sizing: border-box;
+            cursor: pointer;
+            text-decoration: none;
+
+            &>date {
+                color: var(--Ctext-50);
+                width: 4rem;
+                text-align: right;
+            }
+
+            &>.title {
+                color: var(--Cbrand);
+                font-weight: 900;
+                font-size: 1.1rem;
+                line-height: 1.5rem;
+                margin-right: auto;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                text-wrap: nowrap;
+            }
+
+            &>.title::before {
+                content: '';
+                display: inline-block;
+                width: 1.75rem;
+                height: 100%;
+                position: relative;
+                box-sizing: border-box;
+                margin-right: 1rem;
+            }
+
+            &>.append {
+                color: var(--Ctext-25);
+                font-size: .875rem;
+                gap: .5rem;
+
+                &>.tag {
+                    display: inline;
+                }
+
+            }
+        }
+    }
+}

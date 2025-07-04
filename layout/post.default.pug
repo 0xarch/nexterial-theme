@@ -1,0 +1,35 @@
+extends global_layout.pug
+
+append head
+    meta(name="description",content=page.properties.description || page.raw_excerpt)
+    meta(name="keywords",content=(page.properties.keywords||(page.categories.concat(page.tags))).join(","))
+    meta(name="og:site_name",content=ctx.config.title)
+    meta(name="og:url",content=ctx.config.url+url_for(page.relative_path))
+    meta(name="og:type",content="article")
+    meta(name="og:description",content=page.properties.description || page.raw_excerpt)
+    meta(name="og:title",content=page.title)
+    meta(data-nosplash="1")
+    title #{page.title} - #{ctx.config.title}
+
+block content
+    if(page.properties.image)
+        .post-img
+            img(src=page.properties.image,alt='The image of this article.')
+    s-card.wd(style="width:100%;padding:24px")
+        +post-meta(page,true, true)
+    +multi-language(page)
+    article#markdown_fillContent.proseopt
+        != page.content
+    s-divider._
+    +license(page)
+    //- +giscus-widget(page)
+    s-divider._
+    .next-page
+        - let is_earliest = page.current == (page.total - 1)
+        - let is_latest = page.current == 0
+        s-button.left(type="text",href=!is_latest&&url_for(page.prev.relative_path),class=!is_latest&&'__',disabled=is_latest&&"true")
+            s-icon(slot="start")!= _icon('material-symbols:chevron_right','rounded')
+            .title= is_latest?__('Already latest'):page.prev.title
+        s-button.right(type="text",href=!is_earliest&&url_for(page.next.relative_path),class=!is_earliest&&'__',disabled=is_earliest&&"true")
+            .title= is_earliest?__('Already earliest'):page.next.title
+            s-icon(slot="end")!= _icon('material-symbols:chevron_right','rounded')

@@ -1,0 +1,105 @@
+@use "./_declaration.scss" as *;
+
+/* Archive */
+
+.archive-label {
+    margin-left: 2rem;
+    display: flex;
+    align-items: center;
+
+    &>.year {
+        font-size: 1.5rem;
+        line-height: 1.75rem;
+        width: 4rem;
+        height: 2rem;
+        padding-bottom: .25rem;
+        text-align: right;
+        box-sizing: border-box;
+    }
+
+    &>.count {
+        font-size: 1rem;
+        color: var(--s-color-outline);
+    }
+}
+
+#markdown_fillContent {
+    margin: 1.5em 0;
+}
+
+code {
+    padding: .25rem;
+}
+
+pre code,
+pre code.hljs {
+    display: block;
+    padding: .5rem;
+    position: relative;
+    font-size: 1rem;
+    line-height: 1.5;
+    box-sizing: border-box;
+    max-width: 100%;
+    overflow-x: auto;
+}
+
+mdui-card.pm mdui-chip+mdui-chip {
+    margin-left: .25rem;
+}
+
+blockquote {
+    margin: .25rem;
+    border-radius: $card-corner-50;
+    padding: .25rem .75rem;
+    background-color: var(--Cbg);
+    width: fit-content;
+}
+
+#footnote-label.sr-only {
+    color: #0000;
+    font-size: 0;
+    height: .5rem;
+    background-color: var(--Cbg);
+    border-radius: 1rem;
+    width: 75%;
+    left: 12.5%;
+    position: relative;
+    margin: 1.25rem 0;
+}
+
+.next-page {
+    display: flex;
+    justify-content: space-between;
+    gap: $card-gap;
+
+    & s-button.left>s-icon svg {
+        transform: rotate(180deg)
+    }
+}
+
+@media(max-width:768px) {
+    .next-page {
+        flex-direction: column;
+
+        &>a {
+            width: unset;
+        }
+    }
+}
+
+.proseopt p>img {
+    max-width: 100%;
+}
+
+.proseopt table {
+    border: 1px solid var(--s-color-surface-variant);
+    border-collapse: collapse;
+    width: 100%;
+
+    & td,
+    th {
+        border: 1px solid var(--s-color-surface-variant);
+        padding: 8px;
+        text-align: center;
+    }
+}

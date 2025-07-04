@@ -1,0 +1,7 @@
+@use "../declaration" as *;
+
+@mixin use() {
+    .sw.list s-badge {
+        width: auto;
+    }
+}

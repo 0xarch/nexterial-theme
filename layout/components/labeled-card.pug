@@ -1,0 +1,13 @@
+mixin labeled-card(post,config)
+    - config = config || {}
+    - let showYear = config.showYear || false
+    - let showTag = config.showTag || true
+    .labeled-card
+        a.--smooth(href=url_for(post.relative_path))
+            date
+                != !showYear ? post.date.format('MM-DD') : post.date.format('YYYY-MM-DD')
+            .title= post.title
+            .append
+                if showTag
+                    each v in post.tags
+                        .tag= '#' + v

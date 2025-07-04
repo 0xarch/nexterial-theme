@@ -1,0 +1,27 @@
+extends global_layout.pug
+
+append head
+    meta(name="description",content="Archive page of this website.")
+    title #{__('Archives')}(#{page.current}) - #{ctx.config.title}
+
+block content
+    - let used_year = []
+    - let y = {}
+    each post in site.posts.slice(page.current*10,page.current*10+10)
+        - let year = post.date.year()
+        if !used_year.includes(year)
+            - y[year] = []
+            - used_year.push(year)
+        - y[year].push(post)
+    - used_year.sort((a,b)=>b-a)
+    each k in used_year
+        - let v= y[k]
+        h2.archive-label
+            .year=k
+            .count= v.length == 1 ? __(`${v.length} article`) : __(`${v.length} articles`)
+        s-divider._
+        ul.index-ul
+            each post in v
+                li
+                    +post-card(post)
+    +page-navigator(page.total,page.current,'/archives')

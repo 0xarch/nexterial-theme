@@ -1,0 +1,92 @@
+@use "./_declaration.scss" as *;
+
+@import url("https://fonts.googleapis.com/css?family=Roboto:400,700");
+
+:root {
+    color-scheme: light dark;
+    font-family: Roboto, sans-serif, system-ui;
+    --hue: var(--config-hue, 250);
+    --Cbrand: oklch(.7 .14 var(--hue));
+    --Cdisplay: #000000bf;
+    --Cbg: oklch(.95 .01 var(--hue));
+    --Ccard-bg-hover: oklch(.98 .005 var(--hue));
+    --Cbtn-plain-bg-hover: oklch(.95 .025 var(--hue));
+    --Cbtn-content: oklch(.55 .12 var(--hue));
+    --Cbtn-regular-bg: oklch(.95 .025 var(--hue));
+    --Cbtn-regular-bg-hover: oklch(.9 .05 var(--hue));
+    --Ctext-25: #0000004d;
+    --Ctext-50: #0000008d;
+    --Ctext-75: #000000bf;
+    --Ctext-100: #000;
+
+    @each $percent, $value in (100, $card-corner-100), (75, $card-corner-75), (50,$card-corner-50), (25,$card-corner-25) {
+        --card-corner-#{$percent}: #{$value};
+    }
+
+    --Ccard-bg: rgba(255,255,255);
+    --card-gap: #{$card-gap};
+    --card-corner: #{$card-corner};
+    --card-corner-circle: #{$card-corner-circle};
+    --card-shadow: #{$card-shadow};
+    --card-padding: #{$card-padding};
+}
+
+@media(prefers-color-scheme:dark) {
+    :root {
+        --Cbrand: oklch(.75 .14 var(--hue));
+        --Cdisplay: #ffffffbf;
+        --Cbg: oklch(.16 .014 var(--hue));
+        --Ccard-bg-hover: oklch(.3 .03 var(--hue));
+        --Cbtn-plain-bg-hover: oklch(.3 .035 var(--hue));
+        --Cbtn-content: oklch(.75 .1 var(--hue));
+        --Cbtn-regular-bg: oklch(.33 .035 var(--hue));
+        --Cbtn-regular-bg-hover: oklch(.38 .04 var(--hue));
+        --Ctext-25: #ffffff4d;
+        --Ctext-50: #ffffff8d;
+        --Ctext-75: #ffffffbf;
+        --Ctext-100: #fff;
+
+        --Ccard-bg: oklch(.23 .015 var(--hue));
+    }
+}
+
+@media(prefers-color-scheme:dark) {
+    :root {
+        --text-color: white;
+        --bg-color: black;
+
+    }
+}
+
+body {
+    margin: 0;
+    position: relative;
+    overflow: hidden;
+    font-family: Roboto, sans-serif, ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", Segoe UI Symbol, "Noto Color Emoji";
+    color-scheme: light dark;
+}
+
+html::-webkit-scrollbar {
+    display: none
+}
+
+body.not-ready {
+    opacity: 0
+}
+
+body.main-anim-finished #NEO_REPLACE {
+    opacity: 1;
+    top: 0;
+    transform: none;
+    pointer-events: unset;
+}
+
+body.being-replaced #NEO_REPLACE {
+    opacity: 0;
+    transform: scale(1.1);
+    top: 7rem;
+}
+
+svg path, symbol path {
+    fill: currentColor;
+}

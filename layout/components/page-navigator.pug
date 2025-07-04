@@ -1,0 +1,14 @@
+mixin page-navigator(total,now,name)
+    .page-navigator
+        - let targets = array_unique([...range(now-2,now+2)].filter(v => v>0 && v<total-1))
+        s-icon-button.prev(href=now>0?url_for(`/${name}/${now-1}`):void 0,class=(now>0)&&'__',disabled=(now<=0)&&"true",variant="filled")!= _icon('material-symbols:chevron_right','rounded')
+        s-icon-button.__(href=url_for(`/${name}/0`),variant=now==0?'filled':'tonal')!= 1
+        if total != 1
+            if now > 3
+                s-icon-button(disabled="true") ...
+            for target in targets
+                s-icon-button.__(href=url_for(`/${name}/${target}`),variant=target==now?'filled':'tonal') #{target+1}
+            if total - now > 3
+                s-icon-button(disabled="true") ...
+            s-icon-button.__(href=url_for(`/${name}/${total-1}`),variant=now==total-1?'filled':'tonal')!= total
+        s-icon-button.next(href=now<total-1?url_for(`/${name}/${now+1}`):void 0,class=(now<total-1)&&'__',disabled=(now>=total-1)&&"true",variant="filled")!= _icon('material-symbols:chevron_right','rounded')

@@ -1,0 +1,47 @@
+@use "../declaration" as *;
+
+@mixin use() {
+    #NEO_BTT {
+        position: fixed;
+        bottom: 3rem;
+        right: 3rem;
+        z-index: 3000;
+    }
+    #backToTopButton {
+        position: fixed;
+        bottom: 3rem;
+        right: 3rem;
+        width: 4rem;
+        height: 4rem;
+        z-index: 3000;
+
+        color: var(--Cbtn-content);
+        opacity: 1;
+        border-radius: $card-corner-circle;
+        padding: 0;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        @include transition([opacity background-color]);
+
+        &.hide {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        &>svg {
+            width: 3rem;
+            height: 3rem;
+        }
+
+        &:hover {
+            background-color: var(--Cbtn-regular-bg-hover);
+        }
+    }
+
+    body:not(.main-anim-finished) #backToTopButton {
+        opacity: 0;
+        pointer-events: none;
+    }
+}

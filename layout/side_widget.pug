@@ -1,0 +1,55 @@
+.sw.user-intro(type="outlined")
+    s-avatar(src=(ctx.config.avatar||url_for('/avatar.webp')))
+    a.name(href=ctx.config.user_url||ctx.config.url)= ctx.config.author
+    .note(type="outlined")
+        != ctx.config.note||ctx.config.description
+    .row
+        each val,key in ctx.config.social_links || {}
+            a(href=val.url,title=key)
+                s-icon-button(type="outlined")
+                    != get_fa_brand(val.icon)
+s-divider
+.sw.archive
+    s-menu
+        span(slot="label")!= __('Console')
+        s-menu-item.__(href=url_for('/archives/0'))
+            s-icon(slot="start")
+                != __icon('material-symbols:archive','rounded')
+            != _i18n('Archives',_i18n_lang(page.current))
+        each v,k in ctx.config.additional_navs || {}
+            if v.icon
+                if ! v.url
+                    - throw new Error(`Cannot use icon-url bind without url declared!`)
+                s-menu-item(href=v.url,class=v.url.startsWith('/')&&'__')
+                    s-icon(slot="start")
+                        - let [ name, type ] = v.icon.split(',')
+                        != __icon(name,type||'rounded')
+                    != k.startsWith('^') || k.startsWith('\\') ? k.slice(1) : __(k)
+            else
+                s-menu-item(href=v,class=v.startsWith('/')&&'__')
+                    s-icon(slot="start")
+                        != __icon('material-symbols:chevron_right','rounded')
+                    != k.startsWith('^') || k.startsWith('\\') ? k.slice(1) : __(k)
+s-divider
+.sw.list(style="width:100%")
+    s-menu
+        span(slot="label")!= __('Query')
+        s-menu-item
+            s-icon(slot="start")
+                != __icon('material-symbols:category','rounded')
+            != _i18n('Categories',_i18n_lang(page.current))
+            s-menu(slot="menu")
+                each v in site.categories
+                    s-menu-item.__(href=url_for(`/categories/${v.key}/0/index.html`),rounded="true")
+                        != v.key
+                        s-badge(slot="end")!=v.values.length
+        s-menu-item(value="col-tag")
+            s-icon(slot="start")
+                != __icon('material-symbols:tag','rounded')
+            != _i18n('Tags',_i18n_lang(page.current))
+            s-menu(slot="menu")
+                each v in site.tags
+                    s-menu-item.__(href=url_for(`/tags/${v.key}/0/index.html`),rounded="true")
+                        != v.key
+                        s-badge(slot="end")!=v.values.length
+#markdown_TOC

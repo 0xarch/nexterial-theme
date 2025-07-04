@@ -1,0 +1,80 @@
+@use "_declaration.scss" as *;
+@use "./frame_widgets/header_widget" as header-widget;
+@use "./frame_widgets/footer_widget" as footer-widget;
+@use "./frame_widgets/back-to-top_widget" as back-to-top-widget;
+@use "./frame_widgets/loading-circle_widget" as loading-circle-widget;
+
+:root {
+    --color-selection-bar: linear-gradient(to right, oklch(.6 .3 0), oklch(.6 .3 30), oklch(.6 .3 60), oklch(.6 .3 90), oklch(.6 .3 120), oklch(.6 .3 150), oklch(.6 .3 180), oklch(.6 .3 210), oklch(.6 .3 240), oklch(.6 .3 270), oklch(.6 .3 300), oklch(.6 .3 330), oklch(.6 .3 360));
+}
+
+#NEO_CONTENT {
+    display: grid;
+    grid-template-rows: auto 1fr;
+    height: 100vh;
+}
+
+s-appbar {
+    grid-row: 1;
+    width: 100%;
+}
+
+#NEO_REPLACE {
+    overscroll-behavior: auto;
+    overflow: auto;
+    grid-row: 2;
+    padding: 24px 32px;
+}
+
+#NEO_SIDE {
+    height: 100vh;
+    overflow: auto;
+}
+
+mdui-card.sw,
+mdui-card.pd {
+    padding: $card-padding;
+}
+
+s-card.pc,
+s-card.wd {
+    display: block;
+    max-width: none;
+}
+
+.sublist {
+    margin-left: 2.5rem;
+}
+
+s-divider._ {
+    margin-top: .5rem;
+    margin-bottom: .5rem;
+}
+
+#markdown_fillContent {
+    line-height: 1.75rem;
+}
+
+@include header-widget.use;
+@include footer-widget.use;
+@include back-to-top-widget.use;
+@include loading-circle-widget.use;
+
+.license {
+    width: 100%;
+    max-width: unset;
+    padding: 16px;
+    & a {
+        color: var(--s-color-primary);
+        text-decoration: none;
+    }
+    & .background {
+        color: var(--s-color-on-surface-variant);
+        position: absolute;
+        width: 3rem;
+        height: 3rem;
+        right: 0;
+        top: 50%;
+        transform: translateX(-50%);
+    }
+}

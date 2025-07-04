@@ -1,0 +1,12 @@
+extends global_layout.pug
+
+append head
+    title #{__('Tags')} - #{ctx.config.title}
+
+block content
+    .NeoWidget
+        h2= __('Categories')
+        ul
+            each tag in site.tags
+                li
+                    a(href=url_for('/tags/'+tag.key+'/0/'))= tag.key

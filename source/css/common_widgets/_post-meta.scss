@@ -1,0 +1,20 @@
+@use "../declaration" as *;
+
+@mixin use() {
+    .post-meta {
+        width: 100%;
+
+        & a {
+            text-decoration: none;
+        }
+
+        &>.meta-title {
+            margin: .85rem 0;
+            font-weight: bold;
+        }
+
+        & s-chip {
+            margin: .25rem;
+        }
+    }
+}

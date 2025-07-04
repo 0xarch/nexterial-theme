@@ -1,0 +1,8 @@
+@use "./_declaration.scss" as *;
+@use "./side_widgets/list" as list-widget;
+@use "./side_widgets/toc" as toc;
+@use "./side_widgets/userintro" as user-intro;
+
+@include list-widget.use;
+@include toc.use;
+@include user-intro.use;
