@@ -1,5 +1,5 @@
 mixin license(post)
-    s-card.license
+    s-card.license(type="outlined")
         div(slot="headline")!= post.title
         div(slot="subhead")!= __('Published on') + post.date.format('YYYY-MM-DD')
         div(slot="subhead")!= __('Author') + post.author
