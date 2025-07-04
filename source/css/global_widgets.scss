@@ -2,9 +2,15 @@
 
 @use "./common_widgets/labeled-card" as labeled-card;
 @use "./common_widgets/post-meta" as post-meta;
+@use "./side_widgets/list" as list-widget;
+@use "./side_widgets/toc" as toc;
+@use "./side_widgets/userintro" as user-intro;
 
 @include labeled-card.use;
 @include post-meta.use;
+@include list-widget.use;
+// @include toc.use;
+@include user-intro.use;
 
 .index-ul {
     padding: 0;

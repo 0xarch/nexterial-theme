@@ -1,4 +1,9 @@
 const TOC = (markdown_content, toc) => {
+    let markdownContent = document.getElementById('markdown_fillContent');
+    let tocRoot = document.getElementById('NEO_TOC');
+    if(!markdownContent){
+        tocRoot?.classList?.add('disabled');
+    }
     if (!markdown_content) {
         console.error(`No {markdown_content} specified.`);
         return;

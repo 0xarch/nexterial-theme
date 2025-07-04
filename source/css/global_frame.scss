@@ -1,6 +1,4 @@
 @use "_declaration.scss" as *;
-@use "./frame_widgets/header_widget" as header-widget;
-@use "./frame_widgets/footer_widget" as footer-widget;
 @use "./frame_widgets/back-to-top_widget" as back-to-top-widget;
 @use "./frame_widgets/loading-circle_widget" as loading-circle-widget;
 
@@ -19,16 +17,40 @@ s-appbar {
     width: 100%;
 }
 
-#NEO_REPLACE {
+#NEO_MAIN {
     overscroll-behavior: auto;
     overflow: auto;
     grid-row: 2;
     padding: 24px 32px;
 }
 
+#NEO_REPLACE {
+    max-width: 1280px;
+    margin: 0 auto;
+}
+
 #NEO_SIDE {
     height: 100vh;
     overflow: auto;
+}
+
+#NEO_SEARCH {
+    z-index: 1000;
+}
+
+#NEO_SEARCH>s-scroll-view {
+    max-height: 160px;
+}
+
+#NEO_SEARCH>s-scroll-view:empty{
+    border: none;
+}
+
+#NEO_SEARCH>s-scroll-view>s-ripple{
+    height: 40px;
+    display: flex;
+    align-items: center;
+    padding: 0 16px;
 }
 
 mdui-card.sw,
@@ -42,10 +64,6 @@ s-card.wd {
     max-width: none;
 }
 
-.sublist {
-    margin-left: 2.5rem;
-}
-
 s-divider._ {
     margin-top: .5rem;
     margin-bottom: .5rem;
@@ -55,8 +73,6 @@ s-divider._ {
     line-height: 1.75rem;
 }
 
-@include header-widget.use;
-@include footer-widget.use;
 @include back-to-top-widget.use;
 @include loading-circle-widget.use;
 

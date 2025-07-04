@@ -1,8 +1,11 @@
 @use "../declaration" as *;
 
 @mixin use() {
-
-
+    #NEO_TOC {
+        &.disabled {
+            display: none;
+        }
+    }
     #markdown_TOC {
         display: none;
     }

@@ -1,5 +1,5 @@
 import { navBarInit } from './navBar.mjs';
-import { toc } from './toc.mjs';
+// import { toc } from './toc.mjs';
 import { findAndInitGiscus } from './giscus.mjs';
 import { SmoothNavigator } from './smoothNav.mjs';
 
@@ -26,7 +26,7 @@ export function onPageProcess() {
     // giscus
     findAndInitGiscus();
     // TOC
-    toc();
+    // toc();
     // NavigationBar
     navBarInit();
     // Smooth Navigate

@@ -2,7 +2,6 @@ include components/page-navigator.pug
 include components/post-card.pug
 include components/post-meta.pug
 include components/license.pug
-include components/labeled-card.pug
 include components/multi-language.pug
 include components/giscus.pug
 include components/back-to-top.pug
@@ -22,7 +21,6 @@ html(class='mdui-theme-auto', lang=page.language)
             link(rel="icon",href=url_for("icon.svg"))
             <script src="https://unpkg.com/sober@1.1.8/dist/sober.min.js"></script>
             link(rel='stylesheet',href=url_for('css/global.css'))
-            link(rel='stylesheet',href=url_for('css/global_side.css'))
             link(rel='stylesheet',href=url_for('css/global_widgets.css'))
             link(rel='stylesheet',href=url_for('css/global_frame.css'))
             link(rel='stylesheet',href=url_for('css/global_page.css'))
@@ -45,5 +43,10 @@ html(class='mdui-theme-auto', lang=page.language)
                         div(slot="headline")!= ctx.config.title || `${ctx.config.author}'s Blog`
 
                         s-search#NEO_SEARCH(slot="search")
-                    main#NEO_REPLACE
-                        block content
+                            s-scroll-view(slot="dropdown")
+                    main#NEO_MAIN
+                        #NEO_REPLACE
+                            block content
+                        //- #NEO_TOC
+                        //-     s-ripple
+                        //-     s-fold#markdown_TOC
