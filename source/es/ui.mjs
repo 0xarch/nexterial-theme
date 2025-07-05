@@ -77,6 +77,9 @@ window.addEventListener('load', () => {
     document.body.classList.add('loaded');
 });
 document.addEventListener('DOMContentLoaded', () => {
+    if(navigator.userAgent.includes('Android')){
+        document.getElementById('NEO_MAIN').style.setProperty('padding-bottom','80px');
+    }
     if (document.querySelector('meta[data-nosplash="1"]') && window.location.href.endsWith('/')) {
         history.replaceState('', '', window.location.href.slice(0, window.location.href.length - 1));
     }
