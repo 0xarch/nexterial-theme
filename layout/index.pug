@@ -9,8 +9,9 @@ append head
 block content
     h1(hidden=true)= ctx.config.title
     ul.index-ul
-        each post in site.posts.slice(page.current*10,page.current*10+10)
+        each post in Object.values(site.sources)
             li
                 +post-card(post)
     s-divider
-    +page-navigator(Math.ceil(site.posts.length/10),page.current,'page')
+    if site.posts.length > 30
+        +page-navigator(Math.ceil(site.posts.length/30),page.current,'page')

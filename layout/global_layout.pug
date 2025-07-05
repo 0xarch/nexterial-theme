@@ -33,20 +33,20 @@ html(class='mdui-theme-auto', lang=page.language)
                 div#NEO_SIDE(slot="start")
                     include side_widget.pug
                 #NEO_CONTENT
+                    main#NEO_MAIN
+                        #NEO_REPLACE
+                            block content
                     s-appbar
                         s-icon-button(slot="navigation",onclick='document.getElementById("NEO_DRAWER").toggle()')
                             s-icon!= _icon('material-symbols:menu','rounded')
 
                         s-icon-button.__(slot="logo",href=url_for('/'))
-                            != _icon('material-symbols:home','rounded')
+                            s-icon!= _icon('material-symbols:home','rounded')
 
                         div(slot="headline")!= ctx.config.title || `${ctx.config.author}'s Blog`
 
                         s-search#NEO_SEARCH(slot="search")
                             s-scroll-view(slot="dropdown")
-                    main#NEO_MAIN
-                        #NEO_REPLACE
-                            block content
                         //- #NEO_TOC
                         //-     s-ripple
                         //-     s-fold#markdown_TOC

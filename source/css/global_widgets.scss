@@ -16,9 +16,26 @@
     padding: 0;
     margin: 0;
     list-style: none;
-    display: flex;
-    flex-direction: column;
     gap: .5rem;
+    column-count: 3;
+    column-gap: 0;
+}
+
+@container main (max-width:800px) {
+    .index-ul {
+        column-count: 2;
+    }
+}
+
+@container main (max-width:384px) {
+    .index-ul {
+        column-count: 1;
+    }
+}
+
+.index-ul>li {
+    padding: 4px;
+    break-inside: avoid;
 }
 
 .index-ul+s-divider {
@@ -30,6 +47,7 @@ s-card.pc {
         display: block;
         text-decoration: none;
         color: var(--s-color-primary);
+        line-height: 26px;
     }
 }
 

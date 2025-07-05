@@ -18,6 +18,9 @@ export default function append_page(ctx) {
     },{
         type: 'page',
         get(ctx) {
+            if(ctx.data.posts.length<=30){
+                return [];
+            }
             let array = [];
             for (let i = 0; i < Math.ceil(ctx.data.posts.length/10); i++) {
                 array.push(join(ctx.PUBLIC_DIRECTORY, 'page', i.toString(), 'index.html'));

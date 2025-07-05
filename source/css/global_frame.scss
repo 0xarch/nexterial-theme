@@ -22,6 +22,8 @@ s-appbar {
     overflow: auto;
     grid-row: 2;
     padding: 24px 32px;
+    container-name: main;
+    container-type: inline-size;
 }
 
 #NEO_REPLACE {
@@ -34,10 +36,6 @@ s-appbar {
     overflow: auto;
 }
 
-#NEO_SEARCH {
-    z-index: 1000;
-}
-
 #NEO_SEARCH>s-scroll-view {
     max-height: 160px;
 }
@@ -47,7 +45,7 @@ s-appbar {
 }
 
 #NEO_SEARCH>s-scroll-view>s-ripple{
-    height: 40px;
+    min-height: 40px;
     display: flex;
     align-items: center;
     padding: 0 16px;

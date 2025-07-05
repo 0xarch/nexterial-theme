@@ -6,7 +6,7 @@ append head
 
 block content
     ul.index-ul
-        each post in site.posts.slice(page.current*10,page.current*10+10)
+        each post in Object.values(site.sources).slice(page.current*30,page.current*30+30)
             li
                 +post-card(post)
     s-divider
